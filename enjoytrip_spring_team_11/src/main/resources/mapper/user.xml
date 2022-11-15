@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace = "com.ssafy.user.model.mapper.UserMapper">
+	
+	<resultMap type="user" id="selectUser">
+		<result column="user_email" property="userId"/>
+		<result column="user_password" property="userPwd"/>
+		<result column="user_name" property="userName"/>
+		<result column="join_date" property="joinDate"/>
+	</resultMap>
+	
+	
+	<insert id="regist" parameterType="user">
+		insert into members(user_email, user_password, user_name, join_date)
+		values (#{userId}, #{userPwd}, #{userName}, now())
+	</insert>
+	
+	<select id="login" parameterType="map" resultMap="selectUser">
+		select *
+		from members
+		where user_email = #{userId} and user_password = #{userPwd}
+	</select>
+	
+	<select id="find" parameterType="map" resultType="String">
+		select user_password
+		from members
+		where user_email = #{userId} and user_name = #{userName}
+	</select>
+	
+	<update id="editProfile" parameterType="map">
+		update members
+		set user_name = #{userName}, user_password = #{userPwd}
+		where user_email = #{userId} and user_password = #{userPwdBefore}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from members
+		where user_email = #{userId}
+	</delete>
+	
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*)
+		from members
+		where user_email = #{userId}
+	</select>
+	
+	<select id="checkUser" parameterType="map" resultType="Integer">
+		select count(*)
+		from members
+		where user_email = #{userId} and user_password = #{userPwdBefore}
+	</select>
+	
+</mapper>
