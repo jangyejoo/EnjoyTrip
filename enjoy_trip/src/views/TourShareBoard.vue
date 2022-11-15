@@ -1,5 +1,5 @@
 <template>
-  <div>home</div>
+  <div>여행 계획 게시판</div>
 </template>
 
 <script>

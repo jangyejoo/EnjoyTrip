@@ -1,5 +1,5 @@
 <template>
-  <div>home</div>
+  <div>관광지 찾기</div>
 </template>
 
 <script>

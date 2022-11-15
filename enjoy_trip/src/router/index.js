@@ -1,29 +1,52 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+// import TheNavi from "@/views/TheNavi.vue";
+import HomeView from "@/views/HomeView.vue";
+import MemberView from "@/views/MemberView.vue";
+import SignIn from "@/views/SignIn.vue";
+import SignUp from "@/views/SignUp.vue";
+import TourMap from "@/views/TourMapView.vue";
+import TourShareBoard from "@/views/TourShareBoard.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "Home",
+    component: HomeView,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/member",
+    name: "Member",
+    component: MemberView,
+  },
+  {
+    path: "/signin",
+    name: "SiginIn",
+    component: SignIn,
+  },
+  {
+    path: "/signup",
+    name: "SiginUp",
+    component: SignUp,
+  },
+  {
+    path: "/tourmap",
+    name: "TourMap",
+    component: TourMap,
+  },
+  {
+    path: "/tourshareboard",
+    name: "TourShareBoard",
+    component: TourShareBoard,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
