@@ -7,7 +7,6 @@
 
 <script>
 import TheNavi from "@/components/common/AppNavi.vue";
-
 export default {
   components: { TheNavi },
 };
