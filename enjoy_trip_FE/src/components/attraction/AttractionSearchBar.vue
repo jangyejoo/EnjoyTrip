@@ -1,16 +1,23 @@
 <template>
   <b-row class="mt-4 mb-4 text-center">
     <b-col class="sm-3">
-      <b-form-select v-model="sidoCode" :options="sidos"></b-form-select>
+      <b-form-select
+        v-model="sidoCode"
+        :options="sidos"
+        @change="gugunList"
+      ></b-form-select>
     </b-col>
     <b-col class="sm-3">
       <b-form-select v-model="gugunCode" :options="guguns"></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-form-select v-model="category" :options="categories"></b-form-select>
+      <b-form-select
+        v-model="categoryCode"
+        :options="categories"
+      ></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-button block variant="outline-primary">검색</b-button>
+      <b-button block variant="outline-primary" @click="search">검색</b-button>
     </b-col>
   </b-row>
 </template>
@@ -24,7 +31,7 @@ export default {
     return {
       sidoCode: null,
       gugunCode: null,
-      categoryCode: null,
+      categoryCode: 0,
     };
   },
   computed: {
@@ -33,11 +40,31 @@ export default {
   created() {
     this.CLEAR_SIDO_LIST();
     this.CLEAR_GUGUN_LIST();
+    this.SET_CATEGORY_LIST();
     this.getSido();
   },
   methods: {
-    ...mapActions(["getSido"]),
-    ...mapMutations(["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST"]),
+    ...mapActions(["getSido", "getGugun", "getAttractionList"]),
+    ...mapMutations([
+      "CLEAR_SIDO_LIST",
+      "CLEAR_GUGUN_LIST",
+      "SET_CATEGORY_LIST",
+    ]),
+    gugunList() {
+      this.CLEAR_GUGUN_LIST();
+      this.gugunCode = null;
+      if (this.sidoCode) this.getGugun(this.sidoCode);
+    },
+    search() {
+      if (this.gugunCode) {
+        const params = {
+          areaCode: this.sidoCode,
+          gunguCode: this.gugunCode,
+          optionCode: this.categoryCode,
+        };
+        this.getAttractionList(params);
+      }
+    },
   },
 };
 </script>
