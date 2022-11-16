@@ -59,6 +59,11 @@ export default {
   components: {
     NaviSide,
   },
+  mounted() {
+    const curRoute = this.$route.name;
+    console.log(curRoute);
+    if (curRoute == "SignIn" || curRoute == "SignUp") this.isSide = false;
+  },
 };
 </script>
 
