@@ -7,7 +7,10 @@
       <b-form-select v-model="gugunCode"></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-button variant="outline-primary">검색</b-button>
+      <b-form-select v-model="category"></b-form-select>
+    </b-col>
+    <b-col class="sm-3">
+      <b-button block variant="outline-primary">검색</b-button>
     </b-col>
   </b-row>
 </template>
@@ -19,6 +22,7 @@ export default {
     return {
       sidoCode: null,
       gugunCode: null,
+      categoryCode: null,
     };
   },
 };
