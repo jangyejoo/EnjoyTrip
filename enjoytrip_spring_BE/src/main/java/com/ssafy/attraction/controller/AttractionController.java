@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ssafy.attraction.model.mapper.Areacode;
 import com.ssafy.attraction.model.mapper.Attraction;
+import com.ssafy.attraction.model.mapper.ContentTypeCode;
 import com.ssafy.attraction.model.mapper.Sigungucode;
 import com.ssafy.attraction.model.service.AttractionService;
 
@@ -178,6 +179,23 @@ public class AttractionController {
 			List<Attraction> attractions = attractionService.getAttractions(param);
 			if (attractions != null && !attractions.isEmpty()) {
 				return new ResponseEntity<List<Attraction>>(attractions, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+	
+	// 관광지 타입 조회
+	@GetMapping("/contenttpye")
+	public ResponseEntity<?> contentTypeList() {
+		logger.debug("contentTypeList call");
+		try {
+			List<ContentTypeCode> areas = attractionService.getContentTypeCode();
+			if (areas != null && !areas.isEmpty()) {
+				return new ResponseEntity<List<ContentTypeCode>>(areas, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			}

@@ -3,18 +3,20 @@
     <b-row class="justify-content-md-center h-100">
       <!-- no image 대응할것 없으면 css무너짐 사진 크기또한 고정 시켜야 함 -->
       <b-card
-        img-src="https://placekitten.com/300/300"
+        :img-src="`${attraction.firstImage}`"
         img-alt="Card image"
         img-left
-        class="mb-3 w-75 h-100"
+        img-height="300px"
+        img-width="300px"
+        class="mb-3 w-75 h-100 img-size"
       >
         <!-- 글이나 사진이 지나치게 길어지면 card의 크기가 변함 고정시키고 overflow대응할것 -->
         <b-card-body class="h-75">
           <b-card-text>
             <div id="info">
-              <h2>관광지 이름</h2>
-              <h6>주소</h6>
-              <p class="desc">관광지 상세정보</p>
+              <h2>{{ attraction.title }}</h2>
+              <h6>{{ attraction.addr1 }} {{ attraction.addr2 }}</h6>
+              <p class="desc">{{ attraction.contentTpyeName }}</p>
             </div>
           </b-card-text>
         </b-card-body>
@@ -28,7 +30,7 @@
           <b-button variant="danger" to="/attraction">지도로 바로가기</b-button>
           <!-- 이 부분 또한 백엔드와 연결 후, 기능 추가할것-->
           <!-- 누르면 카드를 가리면서 enjoytrip로고 나온뒤 출력하기 lazy loading용으로 나쁘지 않아보임 -->
-          <b-button variant="success" @click="sendaxios"
+          <b-button variant="success" @click="anotherAttraction"
             >다른 관광지 보기</b-button
           >
         </b-card-footer>
@@ -39,21 +41,101 @@
 
 <script>
 // const axios = require("axios");
+import http from "@/api/http";
 
 export default {
   name: "RandomAttraction",
+  data() {
+    return {
+      attraction: null,
+    };
+  },
   methods: {
-    sendaxios() {
-      console.log("axios test");
-      // axios
-      //   .get({
-      //     url: "localhost:80/user/idcheck",
-      //     data: {
-      //       userId: "polite",
-      //     },
-      //   })
-      //   .then((data) => console.log(data));
+    async anotherAttraction() {
+      let sido;
+      let gugun;
+      // let contentType;
+      // 시도 코드 랜덤 추출
+      await http
+        .get("/attraction/sido")
+        .then((data) => data.data)
+        .then(
+          (list) =>
+            (sido =
+              list[Math.floor(Math.random() * (list.length - 0) + 0)].areaCode)
+        );
+      // 구군 코드 랜덤 추출
+      await http
+        .get(`/attraction/sido/${sido}`)
+        .then((data) => data.data)
+        .then(
+          (list) =>
+            (gugun =
+              list[Math.floor(Math.random() * (list.length - 0) + 0)]
+                .sigunguCode)
+        );
+      // 관광지타입 코드 추출
+      // await http
+      //   .get(`/attraction/contenttpye`)
+      //   .then((data) => data.data)
+      //   .then(
+      //     (list) =>
+      //       (contentType =
+      //         list[Math.floor(Math.random() * (list.length - 0) + 0)]
+      //           .contentTypeId)
+      //   );
+
+      await http
+        .get(`/attraction/list?areaCode=${sido}&gunguCode=${gugun}`)
+        .then((data) => data.data)
+        .then(
+          (list) =>
+            (this.attraction =
+              list[Math.floor(Math.random() * (list.length - 0) + 0)])
+        );
     },
+  },
+  async created() {
+    // let sido;
+    // let gugun;
+    // // let contentType;
+    // // 시도 코드 랜덤 추출
+    // await http
+    //   .get("/attraction/sido")
+    //   .then((data) => data.data)
+    //   .then(
+    //     (list) =>
+    //       (sido =
+    //         list[Math.floor(Math.random() * (list.length - 0) + 0)].areaCode)
+    //   );
+    // // 구군 코드 랜덤 추출
+    // await http
+    //   .get(`/attraction/sido/${sido}`)
+    //   .then((data) => data.data)
+    //   .then(
+    //     (list) =>
+    //       (gugun =
+    //         list[Math.floor(Math.random() * (list.length - 0) + 0)].sigunguCode)
+    //   );
+    // // 관광지타입 코드 추출
+    // // await http
+    // //   .get(`/attraction/contenttpye`)
+    // //   .then((data) => data.data)
+    // //   .then(
+    // //     (list) =>
+    // //       (contentType =
+    // //         list[Math.floor(Math.random() * (list.length - 0) + 0)]
+    // //           .contentTypeId)
+    // //   );
+    // await http
+    //   .get(`/attraction/list?areaCode=${sido}&gunguCode=${gugun}`)
+    //   .then((data) => data.data)
+    //   .then(
+    //     (list) =>
+    //       (this.attraction =
+    //         list[Math.floor(Math.random() * (list.length - 0) + 0)])
+    //   );
+    this.anotherAttraction();
   },
 };
 </script>
