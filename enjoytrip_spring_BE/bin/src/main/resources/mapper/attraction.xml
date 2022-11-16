@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.attraction.model.mapper.AttractionMapper">
+
+	<resultMap type="areacode" id="area">
+		<result column="area_code" property="areaCode"></result>
+		<result column="area_name" property="areaName"></result>
+	</resultMap>
+
+	<resultMap type="sigungucode" id="sigungu">
+		<result column="area_code" property="areaCode"></result>
+		<result column="sigungu_code" property="sigunguCode"></result>
+		<result column="sigungu_name" property="sigunguName"></result>
+	</resultMap>
+
+	<resultMap type="attraction" id="attraction">
+		<result column="content_id" property="contentId"></result>
+		<result column="content_type_id" property="contentTypeId"></result>
+		<result column="content_type_name" property="contentTypeName"></result>
+		<result column="addr1" property="addr1"></result>
+		<result column="addr2" property="addr2"></result>
+		<result column="tel" property="tel"></result>
+		<result column="firstimage" property="firstImage"></result>
+		<result column="readcount" property="readCount"></result>
+		<result column="area_code" property="areaCode"></result>
+		<result column="sigungu_code" property="sigunguCode"></result>
+		<result column="lattitude" property="lattitude"></result>
+		<result column="longitude" property="longitude"></result>
+		<result column="title" property="title"></result>
+		<result column="overview" property="overview"></result>
+	</resultMap>
+
+	<select id="getAreacode" resultMap="area">
+		select area_code, area_name
+		from areacode
+	</select>
+
+	<select id="getSigungucode" parameterType="int"
+		resultMap="sigungu">
+		select area_code, sigungu_code, sigungu_name
+		from sigungucode
+		where area_code = #{regcode}
+	</select>
+
+	<select id="getAttractions" parameterType="map"
+		resultMap="attraction">
+		select *
+		from content join content_type
+		on
+		content.content_type_id =
+		content_type.content_type_id
+		where 
+		firstimage != ""
+		<if test="search != null">
+			and title like concat('%', #{search}, '%')
+		</if>
+		<if test="search == null">
+			and area_code = #{regcode}
+			and sigungu_code = #{gungucode}
+			<if test="optioncode != null and optioncode != 0">
+				and content.content_type_id = #{optioncode}
+			</if>
+			<if test="optioncode != null and optioncode == 0">
+				and content.content_type_id in (32, 15)
+			</if>
+			<if test="optioncode == null">
+				order by readcount desc limit 18
+			</if>
+			<if test="optioncode != null">
+				and lattitude > 0
+				and longitude > 0
+				order by readcount desc limit 50
+			</if>
+		</if>
+	</select>
+
+	<select id="getDefaultAttractions" parameterType="map"
+		resultMap="attraction">
+		select *,
+		(6371*acos(cos(radians(#{lat}))*cos(radians(lattitude))*cos(radians(longitude)
+		-radians(#{lon}))+sin(radians(#{lat}))*sin(radians(lattitude)))) AS
+		distance
+		from content join content_type
+		on content.content_type_id =
+		content_type.content_type_id
+		where firstimage != ""
+		order by distance
+		asc limit 18
+	</select>
+
+	<select id="getAttraction" parameterType="int"
+		resultMap="attraction">
+		select *
+		from content join content_type
+		on
+		content.content_type_id=content_type.content_type_id
+		left join
+		content_detail
+		on content.content_id=content_detail.content_id
+		where
+		content.content_id = #{contentId}
+	</select>
+
+</mapper>
