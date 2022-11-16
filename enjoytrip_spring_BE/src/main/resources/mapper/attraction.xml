@@ -32,6 +32,11 @@
 		<result column="title" property="title"></result>
 		<result column="overview" property="overview"></result>
 	</resultMap>
+	
+	<resultMap type="ContentTypeCode" id="ContentTypeCode">
+		<result column="content_type_id" property="contentTypeId"></result>
+		<result column="content_type_name" property="contentTypeName"></result>
+	</resultMap>
 
 	<select id="getAreacode" resultMap="area">
 		select area_code, area_name
@@ -102,6 +107,10 @@
 		on content.content_id=content_detail.content_id
 		where
 		content.content_id = #{contentId}
+	</select>
+	
+	<select id="getContentTypeCode" parameterType="ContentTypeCode" resultMap="ContentTypeCode">
+		select * from content_type
 	</select>
 
 </mapper>

@@ -138,6 +138,8 @@ public class UserController {
 	
 	@PostMapping("/idcheck")
 	public Integer idcheck(@RequestBody User user) {
+		logger.debug("idcheck");
+		logger.debug(user.toString());
 		try {
 			int a = userService.idCheck(user.getUserId());
 			logger.debug(">> " +a);

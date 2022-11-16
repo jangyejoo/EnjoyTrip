@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.attraction.model.mapper.Areacode;
 import com.ssafy.attraction.model.mapper.Attraction;
 import com.ssafy.attraction.model.mapper.AttractionMapper;
+import com.ssafy.attraction.model.mapper.ContentTypeCode;
 import com.ssafy.attraction.model.mapper.Sigungucode;
 
 @Service
@@ -50,6 +51,11 @@ public class AttractionServiceImpl implements AttractionService {
 	@Override
 	public Attraction getAttraction(int contentid) throws Exception {
 		return attractionMapper.getAttraction(contentid);
+	}
+
+	@Override
+	public List<ContentTypeCode> getContentTypeCode() throws Exception {
+		return attractionMapper.getContentTypeCode();
 	}
 
 }
