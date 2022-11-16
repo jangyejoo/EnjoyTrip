@@ -118,7 +118,7 @@
           } 
     	if (document.querySelector("#input-pwd-edit-after").value == "") {	
     		console.log("여기는 안바뀌었을걸?");
-    		document.querySelector("#input-pwd-edit-after").value = ${userInfo.userPwd};
+    		document.querySelector("#input-pwd-edit-after").value = `${userInfo.userPwd}`;
             let form = document.querySelector("#form-edit");
             form.setAttribute("action", "${root}/user");
             form.submit();
@@ -130,6 +130,7 @@
             const changeInfo = {
               userId: document.getElementById('input-id-edit').value,
               userName: document.getElementById('input-name-edit').value,
+              userPwdBefore: document.getElementById('input-pwd-edit-before').value,
               userPwd: document.getElementById('input-pwd-edit-after').value
             }
 
@@ -141,10 +142,24 @@
               body: JSON.stringify(changeInfo)
             }
 
+            // fetch(`${root}/user/checkUser`)
+            // .then(res => res.json())
+            // .then(data => {
+            //   if(data) {
+            //     alert("비밀번호가 틀렸습니다.");
+            //     return;
+            //   }
+            // })
+
             fetch(`${root}/user/editProfile`, option)
-            .then(res => location.href='/');
-
-
+            .then(res => {
+              if(res.status == 200) {
+                location.href = '/';
+              }else{
+                alert("비밀번호가 틀렸습니다.")
+                return;
+              }
+            });
     	}
 	});
     </script>

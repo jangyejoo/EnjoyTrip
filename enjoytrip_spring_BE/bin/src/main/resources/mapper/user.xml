@@ -29,10 +29,10 @@
 		where user_email = #{userId} and user_name = #{userName}
 	</select>
 	
-	<update id="editProfile" parameterType="user">
+	<update id="editProfile" parameterType="map">
 		update members
 		set user_name = #{userName}, user_password = #{userPwd}
-		where user_email = #{userId}
+		where user_email = #{userId} and user_password = #{userPwdBefore}
 	</update>
 	
 	<delete id="delete" parameterType="String">
@@ -44,6 +44,12 @@
 		select count(*)
 		from members
 		where user_email = #{userId}
+	</select>
+	
+	<select id="checkUser" parameterType="map" resultType="Integer">
+		select count(*)
+		from members
+		where user_email = #{userId} and user_password = #{userPwdBefore}
 	</select>
 	
 </mapper>
