@@ -5,7 +5,7 @@ import HomeView from "@/views/HomeView.vue";
 import MemberView from "@/views/MemberView.vue";
 import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
-import TourMap from "@/views/TourMapView.vue";
+import AppAttraction from "@/views/AppAttraction.vue";
 import TourShareBoard from "@/views/TourShareBoard.vue";
 
 Vue.use(VueRouter);
@@ -32,9 +32,9 @@ const routes = [
     component: SignUp,
   },
   {
-    path: "/tourmap",
-    name: "TourMap",
-    component: TourMap,
+    path: "/attraction",
+    name: "Attraction",
+    component: AppAttraction,
   },
   {
     path: "/tourshareboard",
