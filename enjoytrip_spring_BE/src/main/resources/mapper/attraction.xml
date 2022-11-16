@@ -68,9 +68,6 @@
 			<if test="optioncode != null and optioncode != 0">
 				and content.content_type_id = #{optioncode}
 			</if>
-			<if test="optioncode != null and optioncode == 0">
-				and content.content_type_id in (32, 15)
-			</if>
 			<if test="optioncode == null">
 				order by readcount desc limit 18
 			</if>
