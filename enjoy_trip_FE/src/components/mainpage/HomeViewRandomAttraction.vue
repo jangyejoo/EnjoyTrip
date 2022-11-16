@@ -38,11 +38,21 @@
 </template>
 
 <script>
+// const axios = require("axios");
+
 export default {
   name: "RandomAttraction",
   methods: {
     sendaxios() {
       console.log("axios test");
+      // axios
+      //   .get({
+      //     url: "localhost:80/user/idcheck",
+      //     data: {
+      //       userId: "polite",
+      //     },
+      //   })
+      //   .then((data) => console.log(data));
     },
   },
 };
