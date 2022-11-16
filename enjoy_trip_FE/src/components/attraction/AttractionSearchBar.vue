@@ -7,7 +7,7 @@
       <b-form-select v-model="gugunCode"></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-button variant="outline-primary">Button</b-button>
+      <b-button variant="outline-primary">검색</b-button>
     </b-col>
   </b-row>
 </template>
@@ -15,6 +15,12 @@
 <script>
 export default {
   name: "AttractionSearchBar",
+  data() {
+    return {
+      sidoCode: null,
+      gugunCode: null,
+    };
+  },
 };
 </script>
 
