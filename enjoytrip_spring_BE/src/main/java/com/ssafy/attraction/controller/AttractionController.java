@@ -205,6 +205,26 @@ public class AttractionController {
 		}
 	}
 	
+	@GetMapping("/randlist")
+	public ResponseEntity<?> randList(@RequestParam("areaCode") String regcode,
+			@RequestParam("gunguCode") String gungucode) {
+		logger.debug("RandList call");
+		try {
+			Map<String, String> param = new HashMap<>();
+			param.put("regcode", regcode);
+			param.put("gungucode", gungucode);
+			List<Attraction> attractions = attractionService.getRandAttractions(param);
+			if (attractions != null && !attractions.isEmpty()) {
+				return new ResponseEntity<List<Attraction>>(attractions, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionHandling(e);
+		}
+	}
+	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

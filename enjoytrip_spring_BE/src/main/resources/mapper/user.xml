@@ -52,4 +52,10 @@
 		where user_email = #{userId} and user_password = #{userPwdBefore}
 	</select>
 	
+	<select id="nameCheck" parameterType="String" resultType="Integer">
+		select count(*)
+		from members
+		where user_name = #{userName}
+	</select>
+	
 </mapper>

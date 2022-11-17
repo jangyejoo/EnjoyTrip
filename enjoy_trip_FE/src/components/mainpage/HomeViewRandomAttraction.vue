@@ -14,9 +14,9 @@
         <b-card-body class="h-75">
           <b-card-text>
             <div id="info">
-              <h2>{{ attraction.title }}</h2>
+              <h3>{{ attraction.title }}</h3>
               <h6>{{ attraction.addr1 }} {{ attraction.addr2 }}</h6>
-              <p class="desc">{{ attraction.contentTpyeName }}</p>
+              <!-- <p class="desc">{{ attraction.contentTypeName }}</p> -->
             </div>
           </b-card-text>
         </b-card-body>
@@ -47,7 +47,13 @@ export default {
   name: "RandomAttraction",
   data() {
     return {
-      attraction: null,
+      attraction: {
+        title: "",
+        addr1: "",
+        addr2: "",
+        contentTypeName: "",
+        firstImage: "",
+      },
     };
   },
   methods: {
@@ -86,7 +92,7 @@ export default {
       //   );
 
       await http
-        .get(`/attraction/list?areaCode=${sido}&gunguCode=${gugun}`)
+        .get(`/attraction/randlist?areaCode=${sido}&gunguCode=${gugun}`)
         .then((data) => data.data)
         .then(
           (list) =>
@@ -96,45 +102,6 @@ export default {
     },
   },
   async created() {
-    // let sido;
-    // let gugun;
-    // // let contentType;
-    // // 시도 코드 랜덤 추출
-    // await http
-    //   .get("/attraction/sido")
-    //   .then((data) => data.data)
-    //   .then(
-    //     (list) =>
-    //       (sido =
-    //         list[Math.floor(Math.random() * (list.length - 0) + 0)].areaCode)
-    //   );
-    // // 구군 코드 랜덤 추출
-    // await http
-    //   .get(`/attraction/sido/${sido}`)
-    //   .then((data) => data.data)
-    //   .then(
-    //     (list) =>
-    //       (gugun =
-    //         list[Math.floor(Math.random() * (list.length - 0) + 0)].sigunguCode)
-    //   );
-    // // 관광지타입 코드 추출
-    // // await http
-    // //   .get(`/attraction/contenttpye`)
-    // //   .then((data) => data.data)
-    // //   .then(
-    // //     (list) =>
-    // //       (contentType =
-    // //         list[Math.floor(Math.random() * (list.length - 0) + 0)]
-    // //           .contentTypeId)
-    // //   );
-    // await http
-    //   .get(`/attraction/list?areaCode=${sido}&gunguCode=${gugun}`)
-    //   .then((data) => data.data)
-    //   .then(
-    //     (list) =>
-    //       (this.attraction =
-    //         list[Math.floor(Math.random() * (list.length - 0) + 0)])
-    //   );
     this.anotherAttraction();
   },
 };

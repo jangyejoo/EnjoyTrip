@@ -20,4 +20,6 @@ public interface UserMapper {
 	String find(Map<String, String> map) throws SQLException;
 
 	Integer checkUser(Map<String, String> map) throws SQLException;
+
+	int nameCheck(String userName);
 }

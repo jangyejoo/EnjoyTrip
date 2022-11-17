@@ -107,7 +107,13 @@
 	</select>
 	
 	<select id="getContentTypeCode" parameterType="ContentTypeCode" resultMap="ContentTypeCode">
-		select * from content_type
+		select * from content
+	</select>
+	
+	<select id="getRandAttractions" parameterType="map"
+		resultMap="attraction">
+		select * from content
+		where firstimage != ""
 	</select>
 
 </mapper>
