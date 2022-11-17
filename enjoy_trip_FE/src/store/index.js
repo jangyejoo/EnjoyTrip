@@ -10,6 +10,8 @@ export default new Vuex.Store({
     guguns: [{ value: null, text: "구군선택" }],
     categories: [{ value: 0, text: "전체" }],
     attractions: [],
+    detail: null,
+    isModalOpen: false,
   },
   getters: {},
   mutations: {
@@ -48,6 +50,12 @@ export default new Vuex.Store({
     SET_ATTRACTION_LIST(state, attractions) {
       state.attractions = attractions;
     },
+    SET_DETAIL_ATTRACTION(state, attraction) {
+      state.detail = attraction;
+    },
+    MODAL_SWITCH(state, value) {
+      state.isModalOpen = value;
+    },
   },
   actions: {
     getSido({ commit }) {
@@ -74,10 +82,21 @@ export default new Vuex.Store({
       http
         .get(`/attraction/facilities/list`, { params })
         .then(({ data }) => {
-          console.log(data);
           commit("SET_ATTRACTION_LIST", data);
+          commit("MODAL_SWITCH", false);
         })
         .catch((error) => {
+          console.log(error);
+        });
+    },
+    detailAttraction({ commit }, attraction) {
+      http
+        .get(`/attraction/detail/${attraction.contentId}`)
+        .then(({ data }) => {
+          commit("SET_DETAIL_ATTRACTION", data);
+          commit("MODAL_SWITCH", true);
+        })
+        .then((error) => {
           console.log(error);
         });
     },

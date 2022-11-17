@@ -10,6 +10,7 @@
         :attraction="attraction"
       ></attraction-list-item>
     </div>
+    <attraction-detail></attraction-detail>
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
     <b-row>
@@ -22,12 +23,15 @@
 
 <script>
 import AttractionListItem from "@/components/attraction/AttractionListItem.vue";
+import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
+
 import { mapState } from "vuex";
 
 export default {
   name: "AttractionList",
   components: {
     AttractionListItem,
+    AttractionDetail,
   },
   data() {
     return {};
@@ -35,6 +39,7 @@ export default {
   computed: {
     ...mapState(["attractions"]),
   },
+  methods: {},
 };
 </script>
 
