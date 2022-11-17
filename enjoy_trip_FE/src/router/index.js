@@ -35,6 +35,19 @@ const routes = [
     path: "/attraction",
     name: "Attraction",
     component: AppAttraction,
+    redirect: "/attraction/list",
+    children: [
+      {
+        path: "list",
+        name: "attractionlist",
+        component: () => import("@/components/attraction/AttractionList"),
+      },
+      {
+        path: "map",
+        name: "attractionmap",
+        component: () => import("@/components/attraction/AttractionMap"),
+      },
+    ],
   },
   {
     path: "/tourshareboard",

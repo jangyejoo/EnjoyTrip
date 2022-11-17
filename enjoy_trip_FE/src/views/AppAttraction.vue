@@ -9,7 +9,11 @@
 
       <hr class="my-4" />
 
-      <b-button class="float-right" pill variant="outline-primary" href="#"
+      <b-button
+        class="float-right"
+        pill
+        variant="outline-primary"
+        @click="movePage"
         >지도로 조회</b-button
       >
     </b-jumbotron>
@@ -18,26 +22,29 @@
       <b-col><attraction-search-bar></attraction-search-bar></b-col>
     </b-row>
 
-    <b-row>
-      <KakaoMap />
-    </b-row>
-    <b-row>
+    <!-- <b-row>
       <attraction-list></attraction-list>
-    </b-row>
+    </b-row> -->
+    <router-view></router-view>
   </b-container>
 </template>
 
 <script>
 import AttractionSearchBar from "@/components/attraction/AttractionSearchBar.vue";
-import AttractionList from "@/components/attraction/AttractionList.vue";
-import KakaoMap from "@/components/attraction/KakaoMap.vue";
+// import AttractionList from "@/components/attraction/AttractionList.vue";
 
 export default {
   name: "AppAttraction",
   components: {
     AttractionSearchBar,
-    AttractionList,
-    KakaoMap,
+    // AttractionList,
+  },
+  methods: {
+    movePage() {
+      if (this.$route.path == "/attraction/list")
+        this.$router.push({ name: "attractionmap" });
+      else this.$router.push({ name: "attractionlist" });
+    },
   },
 };
 </script>
