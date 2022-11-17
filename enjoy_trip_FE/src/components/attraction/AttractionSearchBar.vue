@@ -62,7 +62,6 @@ export default {
           gunguCode: this.gugunCode,
           optionCode: this.categoryCode,
         };
-        console.log("search");
         this.getAttractionList(params);
       }
     },

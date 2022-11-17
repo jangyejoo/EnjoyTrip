@@ -10,7 +10,7 @@
       <hr class="my-4" />
 
       <b-button
-        class="float-right"
+        class="move-btn float-right"
         pill
         variant="outline-primary"
         @click="movePage"
@@ -22,28 +22,34 @@
       <b-col><attraction-search-bar></attraction-search-bar></b-col>
     </b-row>
 
-    <!-- <b-row>
-      <attraction-list></attraction-list>
-    </b-row> -->
     <router-view></router-view>
   </b-container>
 </template>
 
 <script>
 import AttractionSearchBar from "@/components/attraction/AttractionSearchBar.vue";
-// import AttractionList from "@/components/attraction/AttractionList.vue";
 
 export default {
   name: "AppAttraction",
   components: {
     AttractionSearchBar,
-    // AttractionList,
+  },
+  watch: {
+    $route: {
+      handler() {
+        if (this.$route.path == "/attraction/list")
+          document.querySelector(".move-btn").innerHTML = "지도로 조회";
+        else document.querySelector(".move-btn").innerHTML = "목록으로 조회";
+      },
+    },
   },
   methods: {
     movePage() {
-      if (this.$route.path == "/attraction/list")
+      if (this.$route.path == "/attraction/list") {
         this.$router.push({ name: "attractionmap" });
-      else this.$router.push({ name: "attractionlist" });
+      } else {
+        this.$router.push({ name: "attractionlist" });
+      }
     },
   },
 };

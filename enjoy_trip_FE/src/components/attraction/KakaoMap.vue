@@ -1,39 +1,47 @@
 <template>
-  <b-container class="bv-example-row mt-3">
+  <b-container class="bv-example-row">
     <div id="map" width="100%"></div>
+    <!-- <div class="button-group"> -->
+    <!-- <button @click="changeSize(0)">Hide</button> -->
+    <!-- <button @click="changeSize(400)">show</button> -->
+    <!-- <button @click="displayMarker(markerPositions)">marker set 1</button> -->
+    <!-- <button @click="displayMarker(markerPositions2)">marker set 2</button> -->
+    <!-- <button @click="displayMarker([])">marker set 3 (empty)</button> -->
+    <!-- <button @click="displayInfoWindow">infowindow</button> -->
+    <!-- </div> -->
   </b-container>
-  <!-- <div class="button-group">
-      <button @click="changeSize(0)">Hide</button>
-      <button @click="changeSize(400)">show</button>
-      <button @click="displayMarker(markerPositions1)">marker set 1</button>
-      <button @click="displayMarker(markerPositions2)">marker set 2</button>
-      <button @click="displayMarker([])">marker set 3 (empty)</button>
-      <button @click="displayInfoWindow">infowindow</button>
-    </div> -->
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "KakaoMap",
   data() {
     return {
-      markerPositions1: [
-        [33.452278, 126.567803],
-        [33.452671, 126.574792],
-        [33.451744, 126.572441],
-      ],
-      markerPositions2: [
-        [37.499590490909185, 127.0263723554437],
-        [37.499427948430814, 127.02794423197847],
-        [37.498553760499505, 127.02882598822454],
-        [37.497625593121384, 127.02935713582038],
-        [37.49629291770947, 127.02587362608637],
-        [37.49754540521486, 127.02546694890695],
-        [37.49646391248451, 127.02675574250912],
-      ],
       markers: [],
+      overlays: [],
+      seletedMarker: null,
       infowindow: null,
     };
+  },
+  computed: {
+    ...mapState(["attractions"]),
+  },
+  watch: {
+    attractions: {
+      handler() {
+        if (this.attractions && this.attractions.length != 0) {
+          this.markers = [];
+          this.setOverlays(null);
+          this.displayMarker(this.attractions);
+        } else {
+          this.markers = [];
+          this.setMarkers(null);
+          this.setOverlays(null);
+        }
+      },
+    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -71,17 +79,68 @@ export default {
       }
 
       const positions = markerPositions.map(
-        (position) => new kakao.maps.LatLng(...position)
+        (position) =>
+          new kakao.maps.LatLng(position.lattitude, position.longitude)
       );
 
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          (position) =>
-            new kakao.maps.Marker({
+      if (markerPositions.length > 0) {
+        this.markers = markerPositions.map((position) => {
+          const marker = new kakao.maps.Marker({
+            map: this.map,
+            position: new kakao.maps.LatLng(
+              position.lattitude,
+              position.longitude
+            ),
+          });
+
+          const content = `<div class="map-wrap">
+	                <div class="map-info">
+	                    <div class="map-title">
+	                        ${position.title}
+                          <div class="map-close" title="닫기"></div>
+	                    </div>
+	                    <div class="map-body">
+	                      <div class="map-img">
+	                        <img src="${position.firstImage}" width="73" height="70">
+	                       </div>
+	                        <div class="map-desc">
+	                            <div class="map-ellipsis">${position.addr1}</div>
+	                            <div class="map-tel map-ellipsis">${position.tel}</div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>`;
+
+          // 마커 클릭 이벤트 등록
+          kakao.maps.event.addListener(marker, "click", () => {
+            // 마커 위에 커스텀 오버레이 표시
+            var overlay = new kakao.maps.CustomOverlay({
+              content: content,
               map: this.map,
-              position,
-            })
-        );
+              position: marker.getPosition(),
+            });
+
+            this.setOverlays(null);
+
+            if (!this.seletedMarker || this.seletedMarker !== marker) {
+              // 클릭된 마커 객체가 null이 아니면
+              // 클릭된 마커의 커스텀 오버레이를 닫고
+
+              // 생성된 오버레이를 배열에 추가합니다
+              this.overlays.push(overlay);
+
+              // 현재 클릭된 마커의 커스텀 오버레이를 띄운다
+              overlay.setMap(this.map);
+
+              var closeBtn = document.querySelector(".map-close");
+              closeBtn.addEventListener("click", () => {
+                overlay.setMap(null);
+              });
+            }
+
+            this.seletedMarker = marker;
+          });
+        });
 
         const bounds = positions.reduce(
           (bounds, latlng) => bounds.extend(latlng),
@@ -111,12 +170,22 @@ export default {
 
       this.map.setCenter(iwPosition);
     },
+    setOverlays(map) {
+      for (let i = 0; i < this.overlays.length; i++) {
+        this.overlays[i].setMap(map);
+      }
+    },
+    setMarkers(map) {
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => marker.setMap(map));
+      }
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 #map {
   width: 100%;
   height: 500px;
@@ -126,7 +195,115 @@ export default {
   margin: 10px 0px;
 }
 
-button {
-  margin: 0 3px;
+.map-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  width: 288px;
+  height: 132px;
+  margin-left: -144px;
+  text-align: left;
+  overflow: hidden;
+  font-size: 12px;
+  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+  line-height: 1.5;
+}
+
+.map-wrap * {
+  padding: 0;
+  margin: 0;
+}
+
+.map-wrap .map-info {
+  width: 286px;
+  height: 120px;
+  border-radius: 5px;
+  border-bottom: 2px solid #ccc;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map-wrap .map-info:nth-child(1) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+
+.map-info .map-title {
+  padding: 5px 40px 0 10px;
+  height: 30px;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-info .map-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  width: 17px;
+  height: 17px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png");
+}
+
+.map-info .map-close:hover {
+  cursor: pointer;
+}
+
+.map-info .map-body {
+  position: relative;
+  overflow: hidden;
+}
+
+.map-info .map-desc {
+  position: relative;
+  margin: 13px 0 0 90px;
+  height: 75px;
+}
+
+.map-desc .map-ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1rem;
+}
+
+.map-desc .map-jibun {
+  font-size: 11px;
+  color: #888;
+  margin-top: -2px;
+}
+
+.map-info .map-img {
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  width: 73px;
+  height: 71px;
+  border: 1px solid #ddd;
+  color: #888;
+  overflow: hidden;
+}
+
+.map-info:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: 0;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+}
+
+.map-info .map-link {
+  color: #5085bb;
 }
 </style>
