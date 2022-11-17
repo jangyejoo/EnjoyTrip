@@ -8,7 +8,7 @@
         img-top
         img-height="250px"
         tag="article"
-        style="max-width: 20rem; max-height: 23rem"
+        style="max-width: 25rem; max-height: 23rem"
         @click="selectAttraction"
       >
         <b-card-title :title="attraction.title" title-tag="strong" />

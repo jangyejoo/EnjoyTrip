@@ -13,7 +13,11 @@ export default new Vuex.Store({
     detail: null,
     isModalOpen: false,
   },
-  getters: {},
+  getters: {
+    modalState(state) {
+      return state.isModalOpen;
+    },
+  },
   mutations: {
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach((sido) => {
@@ -96,7 +100,7 @@ export default new Vuex.Store({
           commit("SET_DETAIL_ATTRACTION", data);
           commit("MODAL_SWITCH", true);
         })
-        .then((error) => {
+        .catch((error) => {
           console.log(error);
         });
     },
