@@ -58,4 +58,9 @@ public class AttractionServiceImpl implements AttractionService {
 		return attractionMapper.getContentTypeCode();
 	}
 
+	@Override
+	public List<Attraction> getRandAttractions(Map<String, String> param) {
+		 return attractionMapper.getRandAttractions(param);
+	}
+
 }

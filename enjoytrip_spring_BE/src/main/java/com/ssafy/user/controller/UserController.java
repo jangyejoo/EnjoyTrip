@@ -150,6 +150,20 @@ public class UserController {
 		}
 	}
 	
+	@PostMapping("/namecheck")
+	public Integer namecheck(@RequestBody User user) {
+		logger.debug("idcheck");
+		logger.debug(user.toString());
+		try {
+			int a = userService.nameCheck(user.getUserName());
+			logger.debug(">> " +a);
+			return a;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 1;
+		}
+	}
+	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

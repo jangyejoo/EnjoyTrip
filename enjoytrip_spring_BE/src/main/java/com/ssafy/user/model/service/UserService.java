@@ -19,4 +19,6 @@ public interface UserService {
 	String find(Map<String, String> map) throws Exception;
 	
 	Integer checkUser(Map<String, String> map) throws Exception;
+
+	int nameCheck(String userId);
 }

@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.checkUser(map);
 	}
 
+	@Override
+	public int nameCheck(String userName) {
+		return userMapper.nameCheck(userName);
+	}
+
 }

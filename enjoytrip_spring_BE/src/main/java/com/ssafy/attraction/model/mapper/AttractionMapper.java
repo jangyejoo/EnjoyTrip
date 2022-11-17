@@ -15,4 +15,5 @@ public interface AttractionMapper {
 	List<Attraction> getAttractions(int areacode, int sigungucode, int optioncode) throws SQLException;
 	Attraction getAttraction(int contentid) throws SQLException;
 	List<ContentTypeCode> getContentTypeCode();
+	List<Attraction> getRandAttractions(Map<String, String> param);
 }

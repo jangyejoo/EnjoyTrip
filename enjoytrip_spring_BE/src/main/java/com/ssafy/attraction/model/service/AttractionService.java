@@ -23,4 +23,6 @@ public interface AttractionService {
 	Attraction getAttraction(int contentid) throws Exception;
 	
 	List<ContentTypeCode> getContentTypeCode() throws Exception;
+
+	List<Attraction> getRandAttractions(Map<String, String> param);
 }
