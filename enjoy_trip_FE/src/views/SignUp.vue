@@ -42,18 +42,38 @@
       </b-col>
       <!-- 비밀번호 유효성 검사 -->
       <b-col sm="6" offset-sm="3">
-        <b-form-group label="비밀번호:" label-cols-sm="3">
-          <b-form-input type="password" v-model="user.userPwd"></b-form-input>
+        <b-form-group
+          label="비밀번호:"
+          label-cols-sm="3"
+          :state="checkPwd"
+          invalid-feedback="특수문자($,@,$,!,%,*,#,?,&)와 문자를 포함한 6~16글자여야 합니다."
+        >
+          <b-form-input
+            type="password"
+            v-model="user.userPwd"
+            :state="checkPwd"
+          ></b-form-input>
         </b-form-group>
       </b-col>
 
       <b-col sm="6" offset-sm="3">
-        <b-form-group label="비밀번호 확인:" label-cols-sm="3">
-          <b-form-input type="password"></b-form-input>
+        <b-form-group
+          label="비밀번호 확인:"
+          label-cols-sm="3"
+          :state="dblcheckPwd"
+          invalid-feedback="비밀번호가 같지 않습니다."
+        >
+          <b-form-input
+            type="password"
+            v-model="isPwd"
+            :state="dblcheckPwd"
+          ></b-form-input>
         </b-form-group>
       </b-col>
 
-      <b-button variant="primary" @click="signup">회원가입</b-button>
+      <b-button variant="primary" @click="signup" :disabled="availableSignup">
+        회원가입
+      </b-button>
     </b-container>
   </div>
 </template>
@@ -74,6 +94,7 @@ export default {
       },
       isUser: 0,
       isName: 0,
+      isPwd: "",
     };
   },
   computed: {
@@ -102,12 +123,31 @@ export default {
       return "닉네임은 2자 이상 6자 이하여야합니다.";
     },
     checkPwd() {
-      if (this.isUser == 0 && this.user.userId == "") return null;
-      if (/^\w*@\w*\.[a-zA-Z]{2,3}$/.test(this.user.userId)) {
-        this.checkEmailOnServer();
-        if (this.isUser == 1) return false;
+      if (this.user.userPwd == "") return null;
+      if (
+        /^(?=.*[A-Za-z])(?=.*[$@$!%*#?&])[A-Za-z\d$@!%*#?&]{6,16}$/.test(
+          this.user.userPwd
+        )
+      ) {
         return true;
       } else return false;
+    },
+    dblcheckPwd() {
+      if (this.isPwd == "") return null;
+      if (this.user.userPwd == this.isPwd) return true;
+      return false;
+    },
+    availableSignup() {
+      if (
+        this.user.userId != "" &&
+        this.user.userPwd != "" &&
+        this.user.userName != "" &&
+        this.isUser == 0 &&
+        this.isName == 0 &&
+        this.isPwd == this.user.userPwd
+      )
+        return false;
+      return true;
     },
   },
   methods: {

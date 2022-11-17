@@ -16,9 +16,9 @@ export default {
   methods: {
     routerToggle(e) {
       const items = this.$refs.tog.children;
-      console.log(e.target);
       for (const item of items) {
-        if (e.target == item.children[0]) item.children[0].classList.add("active");
+        if (e.target == item.children[0])
+          item.children[0].classList.add("active");
         else item.children[0].classList.remove("active");
       }
     },
