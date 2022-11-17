@@ -9,7 +9,9 @@
 
       <hr class="my-4" />
 
-      <p>관광지 조회는 시도, 구군, 카테고리로 검색 가능합니다</p>
+      <b-button class="float-right" pill variant="outline-primary" href="#"
+        >지도로 조회</b-button
+      >
     </b-jumbotron>
 
     <b-row>
@@ -43,5 +45,14 @@ export default {
 <style scoped>
 .bv-example-row {
   text-align: left;
+}
+.btn {
+  margin-right: 1rem;
+}
+p {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
