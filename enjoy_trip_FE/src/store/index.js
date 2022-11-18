@@ -12,6 +12,7 @@ export default new Vuex.Store({
     attractions: [],
     detail: null,
     isModalOpen: false,
+    bound: null,
   },
   getters: {
     modalState(state) {
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     SET_DETAIL_ATTRACTION(state, attraction) {
       state.detail = attraction;
+    },
+    SET_BOUND(state, attraction) {
+      state.bound = attraction;
     },
     MODAL_SWITCH(state, value) {
       state.isModalOpen = value;

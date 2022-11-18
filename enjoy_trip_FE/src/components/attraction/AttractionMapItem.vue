@@ -1,5 +1,6 @@
 <template>
   <b-list-group-item
+    @click="rebound"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   name: "AttractionMapItem",
@@ -39,11 +40,15 @@ export default {
   },
   methods: {
     ...mapActions(["detailAttraction"]),
+    ...mapMutations(["SET_BOUND"]),
     colorChange(flag) {
       this.isColor = flag;
     },
     selectAttraction() {
       this.detailAttraction(this.attraction);
+    },
+    rebound() {
+      this.SET_BOUND(this.attraction);
     },
   },
 };

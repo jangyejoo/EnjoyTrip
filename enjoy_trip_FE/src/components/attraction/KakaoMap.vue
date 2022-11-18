@@ -26,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["attractions"]),
+    ...mapState(["attractions", "bound"]),
   },
   watch: {
     attractions: {
@@ -42,6 +42,11 @@ export default {
           this.setOverlays(null);
           // this.markers = [];
         }
+      },
+    },
+    bound: {
+      handler() {
+        this.rebound(this.bound);
       },
     },
   },
@@ -197,6 +202,18 @@ export default {
           marker.setMap(map);
         });
       }
+    },
+    rebound(attraction) {
+      var bounds = new kakao.maps.LatLngBounds();
+
+      let marker = new kakao.maps.LatLng(
+        attraction.lattitude,
+        attraction.longitude
+      );
+
+      bounds.extend(marker);
+
+      this.map.setBounds(bounds);
     },
   },
 };
