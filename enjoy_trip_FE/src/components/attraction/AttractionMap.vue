@@ -4,7 +4,18 @@
       <KakaoMap />
     </b-col>
 
-    <b-col lg="6" v-if="attractions && attractions.length != 0"> </b-col>
+    <b-list-group
+      v-if="attractions && attractions.length != 0"
+      class="overflow-auto col-lg-6"
+      style="height: 500px"
+    >
+      <attraction-map-item
+        v-for="(attraction, index) in attractions"
+        :key="index"
+        :attraction="attraction"
+      ></attraction-map-item>
+      <attraction-detail></attraction-detail>
+    </b-list-group>
     <b-col lg="6" v-else>
       <b-img
         fluid
@@ -16,6 +27,8 @@
 
 <script>
 import KakaoMap from "@/components/attraction/KakaoMap.vue";
+import AttractionMapItem from "@/components/attraction/AttractionMapItem.vue";
+import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
 
 import { mapState } from "vuex";
 
@@ -23,6 +36,8 @@ export default {
   name: "AttractionMap",
   components: {
     KakaoMap,
+    AttractionMapItem,
+    AttractionDetail,
   },
   computed: {
     ...mapState(["attractions"]),

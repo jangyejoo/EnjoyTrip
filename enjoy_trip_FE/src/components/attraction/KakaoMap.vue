@@ -31,14 +31,16 @@ export default {
   watch: {
     attractions: {
       handler() {
+        // 마커와 오버레이 표시
         if (this.attractions && this.attractions.length != 0) {
-          this.markers = [];
+          // this.markers = [];
+          this.setMarkers(null);
           this.setOverlays(null);
           this.displayMarker(this.attractions);
         } else {
-          this.markers = [];
           this.setMarkers(null);
           this.setOverlays(null);
+          // this.markers = [];
         }
       },
     },
@@ -66,6 +68,18 @@ export default {
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options);
+
+      // 마커와 오버레이 표시
+      if (this.attractions && this.attractions.length != 0) {
+        // this.markers = [];
+        this.setMarkers(null);
+        this.setOverlays(null);
+        this.displayMarker(this.attractions);
+      } else {
+        this.setMarkers(null);
+        this.setOverlays(null);
+        // this.markers = [];
+      }
     },
     changeSize(size) {
       const container = document.getElementById("map");
@@ -74,9 +88,9 @@ export default {
       this.map.relayout();
     },
     displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+      // if (this.markers.length > 0) {
+      //   this.markers.forEach((marker) => marker.setMap(null));
+      // }
 
       const positions = markerPositions.map(
         (position) =>
@@ -140,6 +154,8 @@ export default {
 
             this.seletedMarker = marker;
           });
+
+          return marker;
         });
 
         const bounds = positions.reduce(
@@ -177,7 +193,9 @@ export default {
     },
     setMarkers(map) {
       if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(map));
+        this.markers.forEach((marker) => {
+          marker.setMap(map);
+        });
       }
     },
   },
