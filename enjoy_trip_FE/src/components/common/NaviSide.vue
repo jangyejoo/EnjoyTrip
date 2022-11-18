@@ -4,7 +4,7 @@
       <b-row @click="routerToggle" ref="tog">
         <b-nav-item class="ml-3" active to="/">홈 </b-nav-item>
         <b-nav-item to="/attraction"> 관광지 찾기 </b-nav-item>
-        <b-nav-item to="/tourshareboard"> 여행 계획 게시판 </b-nav-item>
+        <b-nav-item to="/tourboard"> 여행 계획 게시판 </b-nav-item>
       </b-row>
     </b-container>
   </b-nav>

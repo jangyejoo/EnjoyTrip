@@ -32,7 +32,7 @@ export default {
     attraction: Object,
   },
   computed: {
-    ...mapState(["isModalOpen"]),
+    ...mapState(["isAttractionModalOpen"]),
   },
   methods: {
     ...mapActions(["detailAttraction"]),

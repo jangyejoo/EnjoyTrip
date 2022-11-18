@@ -2,7 +2,7 @@
   <!-- 관광지 상세정보 모달 -->
   <b-modal
     v-if="detail && detail.length != 0"
-    v-model="modalState"
+    v-model="attractionModalState"
     size="lg"
     scrollable
     no-close-on-backdrop
@@ -56,11 +56,11 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "AttractionDetail",
   computed: {
-    ...mapState(["detail", "isModalOpen"]),
+    ...mapState(["detail", "isAttractionModalOpen"]),
     ...mapGetters({
-      value: "modalState",
+      value: "attractionModalState",
     }),
-    modalState: {
+    attractionModalState: {
       get() {
         return this.value;
       },
@@ -70,9 +70,9 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["MODAL_SWITCH"]),
+    ...mapMutations(["ATTRACTION_MODAL_SWITCH"]),
     close() {
-      this.MODAL_SWITCH(false);
+      this.ATTRACTION_MODAL_SWITCH(false);
     },
   },
 };
