@@ -10,25 +10,43 @@
     @hidden="close"
   >
     <b-container>
-      <b-row class="gy-4">
-        <h2>{{ tour.title }}</h2>
-        <!-- <b-col col lg="8" class="mb-3">
-          <b-img
-            :src="tour.thumbNail"
-            rounded
-            style="width: 100%; heigth: 500px"
-          ></b-img>
-        </b-col> -->
-      </b-row>
+      <h2>{{ tour.title }}</h2>
+      <p class="mb-0">{{ tour.userName }}</p>
+      <p class="mb-0">
+        {{ tour.registerDate }}
+        <span class="mb-0 float-right">
+          <font-awesome-icon icon="fa-solid fa-eye" /> {{ tour.hit }}</span
+        >
+      </p>
+      <ul class="timeline">
+        <tour-board-timeline-item
+          v-for="(item, index) in tour.planInfos"
+          :key="index"
+          :item="item"
+        ></tour-board-timeline-item>
+      </ul>
     </b-container>
+
+    <template #modal-footer>
+      <div class="w-100">
+        <b-button variant="primary" class="float-right" @click="show = false">
+          삭제하기
+        </b-button>
+      </div>
+    </template>
   </b-modal>
 </template>
 
 <script>
+import TourBoardTimelineItem from "@/components/tourboard/TourBoardTimelineItem.vue";
+
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "TourBoardDetail",
+  components: {
+    TourBoardTimelineItem,
+  },
   computed: {
     ...mapState(["tour", "isTourModalOpen"]),
     ...mapGetters({
@@ -52,4 +70,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.timeline {
+  list-style: none;
+  padding: 20px 0 20px;
+  position: relative;
+
+  &:before {
+    background-color: #eee;
+    bottom: 0;
+    content: " ";
+    left: 50px;
+    margin-left: -1.5px;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
+}
+</style>

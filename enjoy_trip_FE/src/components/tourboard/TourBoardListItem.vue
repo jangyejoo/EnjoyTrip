@@ -16,7 +16,7 @@
         <p class="mb-0">
           {{ tour.registerDate }}
           <span class="mb-0 float-right">
-            <b-icon icon="eye" font-scale="1"></b-icon> {{ tour.hit }}</span
+            <font-awesome-icon icon="fa-solid fa-eye" /> {{ tour.hit }}</span
           >
         </p>
       </b-card-text>
