@@ -30,13 +30,24 @@ export default {
   created() {
     this.getTourList();
   },
+  watch: {
+    $route: {
+      handler() {
+        if (this.$route.path == "/tourboard/list") {
+          document.querySelector(".move-btn").innerHTML = "여행 계획 올리기";
+          this.getTourList();
+        } else
+          document.querySelector(".move-btn").innerHTML = "목록으로 돌아가기";
+      },
+    },
+  },
   methods: {
     ...mapActions(["getTourList"]),
     movePage() {
       if (this.$route.path == "/tourboard/list") {
-        this.$router.push({ name: "attractionmap" });
+        this.$router.push({ name: "tourboardwrite" });
       } else {
-        this.$router.push({ name: "attractionlist" });
+        this.$router.push({ name: "tourboardlist" });
       }
     },
   },

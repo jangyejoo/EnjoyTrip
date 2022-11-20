@@ -29,7 +29,11 @@
 
     <template #modal-footer>
       <div class="w-100">
-        <b-button variant="primary" class="float-right" @click="show = false">
+        <b-button
+          variant="danger"
+          class="float-right"
+          @click="deleteSharedPlan"
+        >
           삭제하기
         </b-button>
       </div>
@@ -40,7 +44,7 @@
 <script>
 import TourBoardTimelineItem from "@/components/tourboard/TourBoardTimelineItem.vue";
 
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "TourBoardDetail",
@@ -62,9 +66,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["deletePlan"]),
     ...mapMutations(["TOUR_MODAL_SWITCH"]),
     close() {
       this.TOUR_MODAL_SWITCH(false);
+    },
+    deleteSharedPlan() {
+      if (confirm("일정을 삭제하시겠습니까?")) {
+        this.deletePlan(this.tour);
+        this.close();
+      }
     },
   },
 };

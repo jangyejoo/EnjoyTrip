@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col lg="6" id="mapCol">
-      <KakaoMap />
+      <KakaoMap type="attractionmap" />
     </b-col>
 
     <b-list-group
@@ -16,11 +16,24 @@
       ></attraction-map-item>
       <attraction-detail></attraction-detail>
     </b-list-group>
-    <b-col lg="6" v-else>
-      <b-img
-        fluid
-        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99D3F6495B1C954A1F"
-      ></b-img>
+    <b-col
+      lg="6"
+      v-else
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+        color: #ececec;
+      "
+    >
+      <p>
+        <font-awesome-icon
+          icon="fa-solid fa-circle-exclamation"
+          class="fa-5x"
+          block
+        />
+      </p>
     </b-col>
   </b-row>
 </template>
