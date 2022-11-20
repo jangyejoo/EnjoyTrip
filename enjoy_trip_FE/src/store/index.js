@@ -210,9 +210,15 @@ export default new Vuex.Store({
         })
         .catch((error) => console.log(error));
     },
-    // userLogin(user) {
-    //   http.post("/user/login", { user }).then((data) => console.log(data));
-    // },
+    deletePlan({ commit }, plan) {
+      http
+        .delete(`/board/plan/${plan.planId}`)
+        .then(({ data }) => {
+          commit("SET_TOUR_LIST", data);
+          commit("TOUR_MODAL_SWITCH", false);
+        })
+        .catch((error) => console.log(error));
+    },
   },
   modules: {
     userStore,
