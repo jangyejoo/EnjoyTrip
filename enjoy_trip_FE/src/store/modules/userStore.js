@@ -39,8 +39,8 @@ const userStore = {
       state.isValidToken = isValidToken;
     },
     SET_USER_INFO: (state, userInfo) => {
-      console.log("set user info");
-      state.isLogin = true;
+      // console.log("set user info");
+      // state.isLogin = true;
       state.userInfo = userInfo;
     },
   },

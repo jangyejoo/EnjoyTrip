@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // import TheNavi from "@/views/TheNavi.vue";
 import HomeView from "@/views/HomeView.vue";
-import MemberView from "@/views/MemberView.vue";
+import AppMyPage from "@/views/AppMyPage.vue";
 import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 import AppAttraction from "@/views/AppAttraction.vue";
@@ -43,9 +43,9 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/member",
-    name: "Member",
-    component: MemberView,
+    path: "/mypage",
+    name: "MyPage",
+    component: AppMyPage,
   },
   {
     path: "/signin",

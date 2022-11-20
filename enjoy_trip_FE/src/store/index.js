@@ -4,6 +4,7 @@ import http from "@/api/http";
 
 // modules
 import userStore from "@/store/modules/userStore";
+import myPageStore from "@/store/modules/myPageStore";
 
 Vue.use(Vuex);
 
@@ -156,12 +157,10 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
-    // userLogin(user) {
-    //   http.post("/user/login", { user }).then((data) => console.log(data));
-    // },
   },
   modules: {
     userStore,
+    myPageStore,
   },
   // plugins: [
   //   createPersistedState({

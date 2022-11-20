@@ -23,7 +23,7 @@
             </b-nav-form>
           </b-navbar-nav>
           <!-- 우측 섹션 -->
-          <b-navbar-nav class="mr-1">
+          <b-navbar-nav class="mr-1" v-if="userInfo == null">
             <b-nav-item to="/SignIn" @click="changeIsSide(false)">
               SignIn
             </b-nav-item>
@@ -32,6 +32,12 @@
               SignUp
             </b-nav-item>
           </b-navbar-nav>
+
+          <div v-else>
+            {{ userInfo.userName }}
+            <b-button variant="danger" to="/mypage">마이페이지</b-button>
+            <button @click="logout">로그아웃</button>
+          </div>
         </b-collapse>
       </b-container>
     </b-navbar>
@@ -42,6 +48,8 @@
 
 <script>
 import NaviSide from "@/components/common/NaviSide.vue";
+import { mapState, mapActions } from "vuex";
+
 export default {
   // import NaviSide from "@/components/common/Navi.Side.vue",
 
@@ -52,6 +60,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions("userStore", ["userLogout"]),
+    async logout() {
+      await this.userLogout();
+    },
     changeIsSide(val) {
       this.isSide = val;
     },
@@ -63,6 +75,9 @@ export default {
     const curRoute = this.$route.name;
     console.log(curRoute);
     if (curRoute == "SignIn" || curRoute == "SignUp") this.isSide = false;
+  },
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
   },
 };
 </script>

@@ -15,7 +15,6 @@
         </b-form-group>
       </b-col>
       <b-button variant="primary" @click="loginbtn"> 로그인 </b-button>
-      <b-button variant="primary" @click="logooout"> 로그아웃 </b-button>
     </b-container>
   </div>
 </template>
@@ -47,11 +46,8 @@ export default {
       const token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
         await this.getUserInfo(token);
-        // this.$router.push("/");
+        this.$router.push("/");
       }
-    },
-    async logooout() {
-      await this.userLogout("ssafy@ssafy.com");
     },
   },
 };

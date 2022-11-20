@@ -1,5 +1,8 @@
 <template>
-  <div>member</div>
+  <div>
+    <div>password first</div>
+    <div>modify</div>
+  </div>
 </template>
 
 <script>
