@@ -1,7 +1,9 @@
 package com.ssafy.user.model.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,10 @@ import com.ssafy.user.model.mapper.UserMapper;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Autowired
 	private UserMapper userMapper;
 
 	@Autowired
@@ -55,8 +61,34 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int nameCheck(String userName) {
+	public int nameCheck(String userName) throws Exception{
 		return userMapper.nameCheck(userName);
 	}
+	
+	@Override
+	public void saveRefreshToken(String userId, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("token", refreshToken);
+		sqlSession.getMapper(UserMapper.class).saveRefreshToken(map);
+	}
 
+	@Override
+	public User userInfo(String userId) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).userInfo(userId);
+	}
+
+	@Override
+	public Object getRefreshToken(String userId) throws Exception  {
+		return sqlSession.getMapper(UserMapper.class).getRefreshToken(userId);
+	}
+
+	@Override
+	public void deleRefreshToken(String userid) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userid);
+		map.put("token", null);
+		System.out.println(map.toString());
+		sqlSession.getMapper(UserMapper.class).deleteRefreshToken(map);
+	}
 }

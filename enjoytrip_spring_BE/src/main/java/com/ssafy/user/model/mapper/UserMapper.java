@@ -21,5 +21,13 @@ public interface UserMapper {
 
 	Integer checkUser(Map<String, String> map) throws SQLException;
 
-	int nameCheck(String userName);
+	int nameCheck(String userName) throws SQLException;
+	
+	public void saveRefreshToken(Map<String, String> map) throws SQLException;
+
+	User userInfo(String userId) throws SQLException;
+
+	Object getRefreshToken(String userId) throws SQLException;
+
+	void deleteRefreshToken(Map<String, String> map) throws SQLException;
 }

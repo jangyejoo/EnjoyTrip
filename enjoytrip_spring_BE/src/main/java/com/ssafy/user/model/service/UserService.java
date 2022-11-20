@@ -20,5 +20,14 @@ public interface UserService {
 	
 	Integer checkUser(Map<String, String> map) throws Exception;
 
-	int nameCheck(String userId);
+	int nameCheck(String userId) throws Exception;
+
+	void saveRefreshToken(String userid, String refreshToken) throws Exception;
+
+	User userInfo(String userId) throws Exception;
+
+	Object getRefreshToken(String userId) throws Exception ;
+
+	void deleRefreshToken(String userid) throws Exception ;
+
 }
