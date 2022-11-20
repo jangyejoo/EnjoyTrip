@@ -56,6 +56,7 @@ export default {
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
     search() {
+      console.log("sesarch");
       if (this.gugunCode) {
         const params = {
           areaCode: this.sidoCode,

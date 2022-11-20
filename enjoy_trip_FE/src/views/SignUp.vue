@@ -164,10 +164,12 @@ export default {
         .then((data) => (this.isName = data.data));
     },
     signup() {
-      http
-        .post("/user/regist", this.user)
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error));
+      http.post("/user/regist", this.user).then((data) => {
+        if (data.status == 200) {
+          alert("회원가입 성공!");
+          this.$router.push("/");
+        }
+      });
     },
   },
 };

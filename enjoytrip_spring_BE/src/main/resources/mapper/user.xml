@@ -58,4 +58,28 @@
 		where user_name = #{userName}
 	</select>
 	
+	<update id="saveRefreshToken" parameterType="map">
+		update members
+		set refresh_token = #{token}
+		where user_email = #{userId}
+	</update>
+	
+	<select id="userInfo" parameterType="string" resultMap="selectUser">
+		select *
+		from members
+		where user_email = #{userId}
+	</select>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select refresh_token
+		from members
+		where user_email = #{userId}
+	</select>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update members
+		set refresh_token = #{token, jdbcType=VARCHAR}
+		where user_email = #{userId}
+	</update>
+	
 </mapper>
