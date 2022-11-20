@@ -6,7 +6,7 @@ import MemberView from "@/views/MemberView.vue";
 import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 import AppAttraction from "@/views/AppAttraction.vue";
-import TourShareBoard from "@/views/TourShareBoard.vue";
+import AppTourBoard from "@/views/AppTourBoard.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -78,9 +78,17 @@ const routes = [
     ],
   },
   {
-    path: "/tourshareboard",
-    name: "TourShareBoard",
-    component: TourShareBoard,
+    path: "/tourboard",
+    name: "TourBoard",
+    component: AppTourBoard,
+    redirect: "/tourboard/list",
+    children: [
+      {
+        path: "list",
+        name: "tourboardlist",
+        component: () => import("@/components/tourboard/TourBoardList"),
+      },
+    ],
   },
 ];
 

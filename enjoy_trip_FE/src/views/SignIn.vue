@@ -40,8 +40,8 @@ export default {
     ...mapActions("userStore", ["userLogin", "getUserInfo", "userLogout"]),
     async loginbtn() {
       const user = {
-        userId: "aa@aa.aa",
-        userPwd: "@aaaaa",
+        userId: "ssafy@ssafy.com",
+        userPwd: "12345",
       };
       await this.userLogin(user);
       const token = sessionStorage.getItem("access-token");
@@ -51,7 +51,7 @@ export default {
       }
     },
     async logooout() {
-      await this.userLogout("aa@aa.aa");
+      await this.userLogout("ssafy@ssafy.com");
     },
   },
 };

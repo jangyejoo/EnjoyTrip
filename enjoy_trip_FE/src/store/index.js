@@ -14,15 +14,24 @@ export default new Vuex.Store({
     categories: [{ value: 0, text: "전체" }],
     attractions: [],
     detail: null,
-    isModalOpen: false,
+    isAttractionModalOpen: false,
+    isTourModalOpen: false,
     bound: null,
+    tours: [],
+    tour: null,
   },
   getters: {
-    modalState(state) {
-      return state.isModalOpen;
+    // 관광지 조회
+    attractionModalState(state) {
+      return state.isAttractionModalOpen;
+    },
+    // 여행 계획 게시판
+    tourModalState(state) {
+      return state.isTourModalOpen;
     },
   },
   mutations: {
+    // 관광지 조회
     SET_SIDO_LIST(state, sidos) {
       sidos.forEach((sido) => {
         state.sidos.push({ value: sido.areaCode, text: sido.areaName });
@@ -64,11 +73,22 @@ export default new Vuex.Store({
     SET_BOUND(state, attraction) {
       state.bound = attraction;
     },
-    MODAL_SWITCH(state, value) {
-      state.isModalOpen = value;
+    ATTRACTION_MODAL_SWITCH(state, value) {
+      state.isAttractionModalOpen = value;
+    },
+    // 여행 계획 게시판
+    SET_TOUR_LIST(state, tours) {
+      state.tours = tours;
+    },
+    SET_DETAIL_TOUR(state, tour) {
+      state.tour = tour;
+    },
+    TOUR_MODAL_SWITCH(state, value) {
+      state.isTourModalOpen = value;
     },
   },
   actions: {
+    // 관광지 조회
     getSido({ commit }) {
       http
         .get(`/attraction/sido`)
@@ -95,7 +115,7 @@ export default new Vuex.Store({
         .get(`/attraction/facilities/list`, { params })
         .then(({ data }) => {
           commit("SET_ATTRACTION_LIST", data);
-          commit("MODAL_SWITCH", false);
+          commit("ATTRACTION_MODAL_SWITCH", false);
         })
         .catch((error) => {
           console.log(error);
@@ -107,7 +127,30 @@ export default new Vuex.Store({
         .get(`/attraction/detail/${attraction.contentId}`)
         .then(({ data }) => {
           commit("SET_DETAIL_ATTRACTION", data);
-          commit("MODAL_SWITCH", true);
+          commit("ATTRACTION_MODAL_SWITCH", true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 여행 계획 게시판
+    getTourList({ commit }) {
+      http
+        .get(`/board/list`)
+        .then(({ data }) => {
+          commit("SET_TOUR_LIST", data);
+          commit("TOUR_MODAL_SWITCH", false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    detailTour({ commit }, tour) {
+      http
+        .get(`/board/list/${tour.planId}`)
+        .then(({ data }) => {
+          commit("SET_DETAIL_TOUR", data);
+          commit("TOUR_MODAL_SWITCH", true);
         })
         .catch((error) => {
           console.log(error);

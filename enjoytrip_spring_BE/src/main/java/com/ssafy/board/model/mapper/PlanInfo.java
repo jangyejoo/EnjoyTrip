@@ -5,6 +5,7 @@ public class PlanInfo {
 	private String firstImage;
 	private String title;
 	private String contentDesc;
+	private String contentTypeId;
 
 	public String getContentId() {
 		return contentId;
@@ -36,6 +37,14 @@ public class PlanInfo {
 
 	public void setContentDesc(String contentDesc) {
 		this.contentDesc = contentDesc;
+	}
+	
+	public String getContentTypeId() {
+		return contentTypeId;
+	}
+
+	public void setContentTypeId(String contentTypeId) {
+		this.contentTypeId = contentTypeId;
 	}
 
 }
