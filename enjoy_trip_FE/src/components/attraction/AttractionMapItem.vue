@@ -9,7 +9,7 @@
       <b-col cols="3">
         <b-img thumbnail :src="attraction.firstImage" alt="Image 1"></b-img>
       </b-col>
-      <b-col cols="9" style="padding: 0px">
+      <b-col cols="9" style="padding: 0px" :id="attraction.contentId">
         <h5>{{ attraction.title }}</h5>
         {{ attraction.contentTypeName }}
         <b-button

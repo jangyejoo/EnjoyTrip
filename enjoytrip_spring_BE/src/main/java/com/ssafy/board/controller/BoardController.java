@@ -86,18 +86,19 @@ public class BoardController {
 	
 	// 일정 등록
 	@PostMapping("/plan")
-	public ResponseEntity<?> planRegister(@RequestBody Map<String, String> map, HttpServletRequest request){
+	public ResponseEntity<?> planRegister(@RequestBody Map<String, String> map){
 		logger.debug("planRegister call");
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("userInfo");
-		if (user != null) {
+//		HttpSession session = request.getSession();
+//		User user = (User) session.getAttribute("userInfo");
+//		if (user != null) {
 			try {
 				Board board = new Board();
 				board.setTitle(map.get("title"));
 				board.setThumbNail(map.get("thumbnail"));
-				board.setUserId(user.getUserId());
+				board.setUserId("ssafy@naver.com"); // 임의 설정
 				List<PlanInfo> plans = new ArrayList<>();
-				for (int i = 0; i < 4; i++) {
+				int i = 1;
+				while(true) {
 					String id = "attractionId" + i;
 					String desc = "attractionDesc"+i;
 					if (map.get(id) == null)
@@ -106,6 +107,7 @@ public class BoardController {
 					plan.setContentId(map.get(id));
 					plan.setContentDesc(map.get(desc));
 					plans.add(plan);
+					i++;
 				}
 				board.setPlanInfos(plans);
 				boardService.write(board);
@@ -120,9 +122,9 @@ public class BoardController {
 				e.printStackTrace();
 				return exceptionHandling(e);
 			}
-		} else {
-			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-		}
+//		} else {
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		}
 		
 	}
 	

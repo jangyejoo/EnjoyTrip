@@ -29,7 +29,7 @@
 
     <template #modal-footer>
       <div class="w-100">
-        <b-button variant="primary" class="float-right" @click="show = false">
+        <b-button variant="danger" class="float-right" @click="show = false">
           삭제하기
         </b-button>
       </div>

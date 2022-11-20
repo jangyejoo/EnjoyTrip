@@ -46,10 +46,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 				.setCachePeriod(3600).resourceChain(true).addResolver(new PathResourceResolver());
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new ConfirmInterceptor())
-			.addPathPatterns("/board/plan");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(new ConfirmInterceptor())
+//			.addPathPatterns("/board/plan");
+//	}
 	
 }

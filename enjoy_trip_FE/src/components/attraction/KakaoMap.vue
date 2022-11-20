@@ -25,22 +25,44 @@ export default {
       infowindow: null,
     };
   },
+  props: {
+    type: { type: String },
+  },
   computed: {
-    ...mapState(["attractions", "bound"]),
+    ...mapState(["attractions", "bound", "searchlist"]),
   },
   watch: {
     attractions: {
       handler() {
         // 마커와 오버레이 표시
-        if (this.attractions && this.attractions.length != 0) {
-          // this.markers = [];
-          this.setMarkers(null);
-          this.setOverlays(null);
-          this.displayMarker(this.attractions);
-        } else {
-          this.setMarkers(null);
-          this.setOverlays(null);
-          // this.markers = [];
+        if (this.type === "attractionmap") {
+          if (this.attractions && this.attractions.length != 0) {
+            // this.markers = [];
+            this.setMarkers(null);
+            this.setOverlays(null);
+            this.displayMarker(this.attractions);
+          } else {
+            this.setMarkers(null);
+            this.setOverlays(null);
+            // this.markers = [];
+          }
+        }
+      },
+    },
+    searchlist: {
+      handler() {
+        // 마커와 오버레이 표시
+        if (this.type === "tourboardwrite") {
+          if (this.searchlist && this.searchlist.length != 0) {
+            // this.markers = [];
+            this.setMarkers(null);
+            this.setOverlays(null);
+            this.displayMarker(this.searchlist);
+          } else {
+            this.setMarkers(null);
+            this.setOverlays(null);
+            // this.markers = [];
+          }
         }
       },
     },
@@ -75,15 +97,29 @@ export default {
       this.map = new kakao.maps.Map(container, options);
 
       // 마커와 오버레이 표시
-      if (this.attractions && this.attractions.length != 0) {
-        // this.markers = [];
-        this.setMarkers(null);
-        this.setOverlays(null);
-        this.displayMarker(this.attractions);
-      } else {
-        this.setMarkers(null);
-        this.setOverlays(null);
-        // this.markers = [];
+      if (this.type === "attractionmap") {
+        if (this.attractions && this.attractions.length != 0) {
+          // this.markers = [];
+          this.setMarkers(null);
+          this.setOverlays(null);
+          this.displayMarker(this.attractions);
+        } else {
+          this.setMarkers(null);
+          this.setOverlays(null);
+          // this.markers = [];
+        }
+      }
+      if (this.type === "tourboardwrite") {
+        if (this.searchlist && this.searchlist.length != 0) {
+          // this.markers = [];
+          this.setMarkers(null);
+          this.setOverlays(null);
+          this.displayMarker(this.searchlist);
+        } else {
+          this.setMarkers(null);
+          this.setOverlays(null);
+          // this.markers = [];
+        }
       }
     },
     changeSize(size) {

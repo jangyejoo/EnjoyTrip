@@ -16,6 +16,8 @@ export default new Vuex.Store({
     bound: null,
     tours: [],
     tour: null,
+    searchlist: [],
+    attractioncart: [],
   },
   getters: {
     // 관광지 조회
@@ -82,6 +84,39 @@ export default new Vuex.Store({
     },
     TOUR_MODAL_SWITCH(state, value) {
       state.isTourModalOpen = value;
+    },
+    SET_SEARCH_LIST(state, searchlist) {
+      state.searchlist = searchlist;
+    },
+    CLEAR_SEARCH_LIST(state) {
+      state.searchlist = [];
+    },
+    CLEAR_ATTRACTION_LIST(state) {
+      state.attractioncart = [];
+    },
+    ADD_ATTRACTION_CART(state, attraction) {
+      state.attractioncart.push({
+        title: attraction.title,
+        firstImage: attraction.firstImage,
+        contentId: attraction.contentId,
+        attractionDesc: "",
+      });
+    },
+    DELETE_ATTRACTION_CART(state, attraction) {
+      let cart = state.attractioncart;
+      cart.forEach((item, index) => {
+        if (item.contentId == attraction.contentId) {
+          cart.splice(index, 1);
+        }
+      });
+    },
+    UPDATE_ATTRACTION_CART(state, params) {
+      let cart = state.attractioncart;
+      cart.forEach((item, index) => {
+        if (item.contentId == params.contentId) {
+          cart[index].attractionDesc = params.text;
+        }
+      });
     },
   },
   actions: {
@@ -150,6 +185,25 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
+    },
+    getSearchList({ commit }, params) {
+      http
+        .get(`/attraction/search`, { params })
+        .then(({ data }) => {
+          commit("SET_SEARCH_LIST", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    writePlan({ commit }, map) {
+      http
+        .post("/board/plan", Object.fromEntries(map))
+        .then((data) => {
+          console.log(data);
+          commit("CLEAR_ATTRACTION_LIST");
+        })
+        .catch((error) => console.log(error));
     },
   },
   modules: {},

@@ -60,6 +60,11 @@ const routes = [
         name: "tourboardlist",
         component: () => import("@/components/tourboard/TourBoardList"),
       },
+      {
+        path: "write",
+        name: "tourboardwrite",
+        component: () => import("@/components/tourboard/TourBoardWrite"),
+      },
     ],
   },
 ];
