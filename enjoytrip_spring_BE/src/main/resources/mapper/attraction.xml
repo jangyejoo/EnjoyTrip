@@ -74,7 +74,7 @@
 			<if test="optioncode != null">
 				and lattitude > 0
 				and longitude > 0
-				order by readcount desc limit 50
+				order by readcount desc
 			</if>
 		</if>
 	</select>
