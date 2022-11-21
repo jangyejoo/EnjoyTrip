@@ -98,6 +98,7 @@ export default {
   },
   computed: {
     ...mapState(["searchlist", "attractioncart"]),
+    ...mapState("userStore", ["userInfo"]),
     state() {
       return this.title.length > 0;
     },
@@ -125,6 +126,7 @@ export default {
       let map = new Map();
       map.set("title", this.title);
       map.set("thumbnail", this.attractioncart[0].firstImage);
+      map.set("userId", this.userInfo.userId);
       this.attractioncart.forEach((item, index) => {
         let id = `attractionId${index + 1}`;
         map.set(id, item.contentId);

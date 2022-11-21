@@ -29,9 +29,14 @@
 
     <template #modal-footer>
       <div class="w-100">
+        <b-button variant="primary" class="float-right" @click="close">
+          닫기
+        </b-button>
+
         <b-button
+          v-if="userInfo && userInfo.userId == tour.userId"
           variant="danger"
-          class="float-right"
+          class="float-right mr-2"
           @click="deleteSharedPlan"
         >
           삭제하기
@@ -53,6 +58,7 @@ export default {
   },
   computed: {
     ...mapState(["tour", "isTourModalOpen"]),
+    ...mapState("userStore", ["userInfo"]),
     ...mapGetters({
       value: "tourModalState",
     }),

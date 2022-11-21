@@ -95,7 +95,7 @@ public class BoardController {
 				Board board = new Board();
 				board.setTitle(map.get("title"));
 				board.setThumbNail(map.get("thumbnail"));
-				board.setUserId("ssafy@naver.com"); // 임의 설정
+				board.setUserId(map.get("userId"));
 				List<PlanInfo> plans = new ArrayList<>();
 				int i = 1;
 				while(true) {
