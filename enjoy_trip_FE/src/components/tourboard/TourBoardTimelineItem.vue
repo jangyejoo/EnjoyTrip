@@ -8,14 +8,14 @@
         </h4>
       </div>
       <b-row>
-        <b-col md="4"><b-img thumbnail :src="item.firstImage" alt="" /></b-col>
+        <b-col md="3"><b-img thumbnail :src="item.firstImage" alt="" /></b-col>
         <b-col
           style="
-            margin-right: 15px;
             border-radius: 10px;
             border: 1px solid #d4d4d4;
             padding-top: 1rem;
           "
+          md="8"
           ><div class="timeline-body">
             {{ item.contentDesc }}
           </div></b-col
@@ -190,6 +190,7 @@ export default {
 }
 
 .timeline-body {
+  word-break: break-all;
   > p,
   > ul {
     margin-bottom: 0;

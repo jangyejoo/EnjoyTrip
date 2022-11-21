@@ -7,7 +7,7 @@ import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 import AppAttraction from "@/views/AppAttraction.vue";
 import AppTourBoard from "@/views/AppTourBoard.vue";
-// import store from "@/store";
+// // import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -53,7 +53,7 @@ const routes = [
     name: "Attraction",
     component: AppAttraction,
     // 임시
-    // beforeEnter: onlyAuthUser,
+    // // beforeEnter: onlyAuthUser,
     redirect: "/attraction/list",
     children: [
       {

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import KakaoMap from "@/components/attraction/KakaoMap.vue";
+import KakaoMap from "@/components/common/KakaoMap.vue";
 import AttractionMapItem from "@/components/attraction/AttractionMapItem.vue";
 import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
 

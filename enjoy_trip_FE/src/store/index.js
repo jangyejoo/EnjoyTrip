@@ -203,9 +203,9 @@ export default new Vuex.Store({
     writePlan({ commit }, map) {
       http
         .post("/board/plan", Object.fromEntries(map))
-        .then((data) => {
-          console.log(data);
-          commit("CLEAR_ATTRACTION_LIST");
+        .then(({ data }) => {
+          commit("SET_TOUR_LIST", data);
+          commit("TOUR_MODAL_SWITCH", false);
         })
         .catch((error) => console.log(error));
     },
