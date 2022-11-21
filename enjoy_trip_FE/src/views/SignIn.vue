@@ -5,13 +5,13 @@
       <!-- 이메일 -->
       <b-col sm="6" offset-sm="3">
         <b-form-group label="이메일:" label-cols-sm="3">
-          <b-form-input type="email"></b-form-input>
+          <b-form-input type="email" v-model="user.userId"></b-form-input>
         </b-form-group>
       </b-col>
       <!-- 비밀번호 검사 -->
       <b-col sm="6" offset-sm="3">
         <b-form-group label="비밀번호:" label-cols-sm="3">
-          <b-form-input type="password"></b-form-input>
+          <b-form-input type="password" v-model="user.userPwd"></b-form-input>
         </b-form-group>
       </b-col>
       <b-button variant="primary" @click="loginbtn"> 로그인 </b-button>
@@ -27,22 +27,21 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   name: "SignIn",
-  // data() {
-  //   return {
-  //     isLogin: null,
-  //   };
-  // },
+  data() {
+    return {
+      user: {
+        userId: "",
+        userPwd: "",
+      },
+    };
+  },
   computed: {
     ...mapState("userStore", ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions("userStore", ["userLogin", "getUserInfo", "userLogout"]),
+    ...mapActions("userStore", ["userLogin", "getUserInfo"]),
     async loginbtn() {
-      const user = {
-        userId: "ssafy@ssafy.com",
-        userPwd: "12345",
-      };
-      await this.userLogin(user);
+      await this.userLogin(this.user);
       const token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
         await this.getUserInfo(token);
