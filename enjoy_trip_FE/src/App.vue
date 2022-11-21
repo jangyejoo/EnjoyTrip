@@ -7,19 +7,8 @@
 
 <script>
 import TheNavi from "@/components/common/AppNavi.vue";
-// import { mapActions } from "vuex";
 export default {
   components: { TheNavi },
-  // methods: {
-  //   ...mapActions("userStore", ["getUserInfo"]),
-  //   async refresh() {
-  //     const token = sessionStorage.getItem("access-token");
-  //     await this.getUserInfo(token);
-  //   },
-  // },
-  // created() {
-  //   this.refresh();
-  // },
 };
 </script>
 

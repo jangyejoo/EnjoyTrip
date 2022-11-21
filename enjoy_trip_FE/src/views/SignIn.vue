@@ -20,7 +20,6 @@
 </template>
 
 <script>
-// import userStore from "@/store/modules/userStore";
 import { mapActions, mapState } from "vuex";
 
 // const userStore = "userStore";

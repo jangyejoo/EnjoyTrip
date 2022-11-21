@@ -1,4 +1,4 @@
-// import http from "@/api/http";
+// // import http from "@/api/http";
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 
@@ -28,10 +28,7 @@ const userStore = {
   },
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
-      console.log("set is login");
-      console.log(state.isLogin);
       state.isLogin = isLogin;
-      console.log(state);
     },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
@@ -42,8 +39,6 @@ const userStore = {
       state.isValidToken = isValidToken;
     },
     SET_USER_INFO: (state, userInfo) => {
-      // console.log("set user info");
-      // state.isLogin = true;
       state.userInfo = userInfo;
     },
   },
@@ -54,19 +49,13 @@ const userStore = {
         user,
         ({ data }) => {
           if (data.message == "success") {
-            console.log("success");
-            console.log(">>>>>>", commit);
             const accessToken = data["access-token"];
             const refreshToken = data["refresh-token"];
             commit("SET_IS_LOGIN", true);
-            console.log(111111111111111);
             commit("SET_IS_LOGIN_ERROR", false);
-            console.log(222222222222222222);
             commit("SET_IS_VALID_TOKEN", true);
-            console.log(3333333333333333333);
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
-            console.log("444444444444444444444", sessionStorage.getItem("access-token"));
           } else {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
