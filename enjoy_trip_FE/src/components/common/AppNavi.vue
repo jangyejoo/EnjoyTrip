@@ -1,9 +1,13 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="primary">
+    <b-navbar toggleable="lg" type="dark" variant="white">
       <b-container>
         <b-navbar-brand to="/" @click="changeIsSide(true)">
-          <img src="" alt="로고" />
+          <img
+            src="@/assets/img/logo_keyColor.png"
+            alt="로고"
+            style="width: 80px"
+          />
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

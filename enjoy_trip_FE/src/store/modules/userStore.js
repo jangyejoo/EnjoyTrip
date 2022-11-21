@@ -1,6 +1,7 @@
 // import http from "@/api/http";
 import jwtDecode from "jwt-decode";
 import router from "@/router";
+
 import { login, findById, tokenRegeneration, logout } from "@/api/user.js";
 
 const userStore = {
@@ -27,15 +28,17 @@ const userStore = {
   },
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
-      // console.log("set is login");
-      // console.log(isLogin);
+      console.log("set is login");
+      console.log(state.isLogin);
       state.isLogin = isLogin;
-      // console.log(state);
+      console.log(state);
     },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
     },
     SET_IS_VALID_TOKEN: (state, isValidToken) => {
+      console.log("isvaltoken");
+      console.log(isValidToken);
       state.isValidToken = isValidToken;
     },
     SET_USER_INFO: (state, userInfo) => {
@@ -51,13 +54,19 @@ const userStore = {
         user,
         ({ data }) => {
           if (data.message == "success") {
+            console.log("success");
+            console.log(">>>>>>", commit);
             const accessToken = data["access-token"];
             const refreshToken = data["refresh-token"];
             commit("SET_IS_LOGIN", true);
+            console.log(111111111111111);
             commit("SET_IS_LOGIN_ERROR", false);
+            console.log(222222222222222222);
             commit("SET_IS_VALID_TOKEN", true);
+            console.log(3333333333333333333);
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
+            console.log("444444444444444444444", sessionStorage.getItem("access-token"));
           } else {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
@@ -69,6 +78,8 @@ const userStore = {
     },
     async getUserInfo({ commit, dispatch }, token) {
       let decodeToken = jwtDecode(token);
+      console.log("getUser");
+      console.log(decodeToken);
       await findById(
         decodeToken.userid,
         ({ data }) => {

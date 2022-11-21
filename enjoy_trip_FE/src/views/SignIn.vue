@@ -44,7 +44,9 @@ export default {
       await this.userLogin(this.user);
       const token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
-        await this.getUserInfo(token);
+        await this.getUserInfo(token)
+          .then((success) => console.log(success))
+          .catch((error) => console.log(error));
         this.$router.push("/");
       }
     },
