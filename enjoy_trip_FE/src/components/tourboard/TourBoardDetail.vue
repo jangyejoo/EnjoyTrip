@@ -57,9 +57,9 @@ export default {
     TourBoardTimelineItem,
   },
   computed: {
-    ...mapState(["tour", "isTourModalOpen"]),
+    ...mapState("attraction", ["tour", "isTourModalOpen"]),
     ...mapState("userStore", ["userInfo"]),
-    ...mapGetters({
+    ...mapGetters("attraction", {
       value: "tourModalState",
     }),
     tourModalState: {
@@ -72,8 +72,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["deletePlan"]),
-    ...mapMutations(["TOUR_MODAL_SWITCH"]),
+    ...mapActions("attraction", ["deletePlan"]),
+    ...mapMutations("attraction", ["TOUR_MODAL_SWITCH"]),
     close() {
       this.TOUR_MODAL_SWITCH(false);
     },

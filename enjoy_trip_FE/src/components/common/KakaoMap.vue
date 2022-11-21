@@ -29,7 +29,7 @@ export default {
     type: { type: String },
   },
   computed: {
-    ...mapState(["attractions", "bound", "searchlist"]),
+    ...mapState("attraction", ["attractions", "bound", "searchlist"]),
   },
   watch: {
     attractions: {

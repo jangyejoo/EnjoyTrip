@@ -41,7 +41,7 @@ export default {
     attraction: Object,
   },
   computed: {
-    ...mapState(["attractioncart", "searchlist"]),
+    ...mapState("attraction", ["attractioncart", "searchlist"]),
   },
   created() {
     this.setCheckBox();
@@ -71,8 +71,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["detailAttraction"]),
-    ...mapMutations([
+    ...mapActions("attraction", ["detailAttraction"]),
+    ...mapMutations("attraction", [
       "SET_BOUND",
       "ADD_ATTRACTION_CART",
       "DELETE_ATTRACTION_CART",

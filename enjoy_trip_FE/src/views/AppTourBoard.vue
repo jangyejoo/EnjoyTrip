@@ -55,7 +55,7 @@ export default {
     } else document.querySelector(".move-btn").innerHTML = "목록으로 돌아가기";
   },
   methods: {
-    ...mapActions(["getTourList"]),
+    ...mapActions("attraction", ["getTourList"]),
     movePage() {
       if (this.$route.path == "/tourboard/list") {
         this.$router.push({ name: "tourboardwrite" });

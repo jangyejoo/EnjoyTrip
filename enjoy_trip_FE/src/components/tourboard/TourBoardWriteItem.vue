@@ -40,7 +40,7 @@ export default {
     item: Object,
   },
   methods: {
-    ...mapMutations(["UPDATE_ATTRACTION_CART"]),
+    ...mapMutations("attraction", ["UPDATE_ATTRACTION_CART"]),
     update() {
       const params = {
         contentId: this.item.contentId,

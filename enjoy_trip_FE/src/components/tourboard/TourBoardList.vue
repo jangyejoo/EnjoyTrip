@@ -41,7 +41,7 @@ export default {
     return { listData: [], page: 1, limit: 20, block: 5 };
   },
   computed: {
-    ...mapState(["tours"]),
+    ...mapState("attraction", ["tours"]),
   },
   watch: {
     tours: {
