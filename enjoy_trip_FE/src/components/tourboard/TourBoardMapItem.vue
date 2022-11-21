@@ -48,11 +48,14 @@ export default {
   },
   watch: {
     checked: {
+      immediate: false,
       handler() {
-        if (this.checked) {
+        if (this.checked && !this.already) {
           this.ADD_ATTRACTION_CART(this.attraction);
-        } else {
+          this.already = !this.already;
+        } else if (!this.checked && this.already) {
           this.DELETE_ATTRACTION_CART(this.attraction);
+          this.already = !this.already;
         }
       },
     },
