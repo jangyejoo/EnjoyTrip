@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="primary">
+    <b-navbar toggleable="lg" type="white" variant="white">
       <b-container>
         <b-navbar-brand to="/" @click="changeIsSide(true)">
           <img
@@ -29,21 +29,34 @@
           <!-- 우측 섹션 -->
           <b-navbar-nav class="mr-1" v-if="userInfo == null">
             <b-nav-item to="/SignIn" @click="changeIsSide(false)">
-              SignIn
+              로그인
             </b-nav-item>
             <b-nav-text>|</b-nav-text>
+            <!-- <b-nav-text</b-nav-text> -->
             <b-nav-item to="/SignUp" @click="changeIsSide(false)">
-              SignUp
+              회원가입
             </b-nav-item>
           </b-navbar-nav>
 
-          <div v-else>
+          <b-navbar-nav class="mr-1" v-else>
+            <p>
+              {{ userInfo.userName }}
+            </p>
+            <b-nav-item to="/mypage" @click="initSection">
+              마이페이지
+            </b-nav-item>
+            <b-nav-text>|</b-nav-text>
+            <!-- <b-nav-text</b-nav-text> -->
+            <b-nav-item @click="logout"> 로그아웃 </b-nav-item>
+          </b-navbar-nav>
+
+          <!-- <div v-else>
             {{ userInfo.userName }}
             <b-button variant="danger" to="/mypage" @click="initSection">
               마이페이지
             </b-button>
             <button @click="logout">로그아웃</button>
-          </div>
+          </div> -->
         </b-collapse>
       </b-container>
     </b-navbar>
@@ -91,4 +104,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.nav-item .nav-link,
+.navbar-text {
+  color: black;
+}
+
+.nav-item .nav-link:visited {
+  color: rgb(0, 0, 0);
+}
+</style>

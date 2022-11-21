@@ -1,5 +1,5 @@
 <template>
-  <b-nav tabs>
+  <b-nav tabs class="shadow-sm">
     <b-container>
       <b-row @click="routerToggle" ref="tog">
         <b-nav-item class="ml-3" active to="/">홈 </b-nav-item>
@@ -26,4 +26,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.nav-tabs {
+  /* border-bottom: 1px solid rgb(156, 156, 156); */
+  border: none;
+  color: black;
+}
+
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  border-radius: 0px;
+  color: black;
+}
+
+.nav-tabs .nav-link.active {
+  border-color: white;
+  border-bottom: 3px solid #00ce7c;
+}
+</style>
