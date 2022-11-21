@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["sidos", "guguns", "categories"]),
+    ...mapState("attraction", ["sidos", "guguns", "categories"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
@@ -44,8 +44,8 @@ export default {
     this.getSido();
   },
   methods: {
-    ...mapActions(["getSido", "getGugun", "getAttractionList"]),
-    ...mapMutations([
+    ...mapActions("attraction", ["getSido", "getGugun", "getAttractionList"]),
+    ...mapMutations("attraction", [
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "SET_CATEGORY_LIST",

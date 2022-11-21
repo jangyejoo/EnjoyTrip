@@ -39,8 +39,8 @@ export default {
     attraction: Object,
   },
   methods: {
-    ...mapActions(["detailAttraction"]),
-    ...mapMutations(["SET_BOUND"]),
+    ...mapActions("attraction", ["detailAttraction"]),
+    ...mapMutations("attraction", ["SET_BOUND"]),
     colorChange(flag) {
       this.isColor = flag;
     },

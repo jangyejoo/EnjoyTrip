@@ -51,7 +51,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["attractions"]),
+    ...mapState("attraction", ["attractions"]),
   },
   watch: {
     attractions: {

@@ -29,9 +29,14 @@
 
     <template #modal-footer>
       <div class="w-100">
+        <b-button variant="primary" class="float-right" @click="close">
+          닫기
+        </b-button>
+
         <b-button
+          v-if="userInfo && userInfo.userId == tour.userId"
           variant="danger"
-          class="float-right"
+          class="float-right mr-2"
           @click="deleteSharedPlan"
         >
           삭제하기
@@ -52,8 +57,9 @@ export default {
     TourBoardTimelineItem,
   },
   computed: {
-    ...mapState(["tour", "isTourModalOpen"]),
-    ...mapGetters({
+    ...mapState("attraction", ["tour", "isTourModalOpen"]),
+    ...mapState("userStore", ["userInfo"]),
+    ...mapGetters("attraction", {
       value: "tourModalState",
     }),
     tourModalState: {
@@ -66,8 +72,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["deletePlan"]),
-    ...mapMutations(["TOUR_MODAL_SWITCH"]),
+    ...mapActions("attraction", ["deletePlan"]),
+    ...mapMutations("attraction", ["TOUR_MODAL_SWITCH"]),
     close() {
       this.TOUR_MODAL_SWITCH(false);
     },

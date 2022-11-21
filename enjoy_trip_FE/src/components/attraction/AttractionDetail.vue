@@ -56,8 +56,8 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "AttractionDetail",
   computed: {
-    ...mapState(["detail", "isAttractionModalOpen"]),
-    ...mapGetters({
+    ...mapState("attraction", ["detail", "isAttractionModalOpen"]),
+    ...mapGetters("attraction", {
       value: "attractionModalState",
     }),
     attractionModalState: {
@@ -70,7 +70,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["ATTRACTION_MODAL_SWITCH"]),
+    ...mapMutations("attraction", ["ATTRACTION_MODAL_SWITCH"]),
     close() {
       this.ATTRACTION_MODAL_SWITCH(false);
     },

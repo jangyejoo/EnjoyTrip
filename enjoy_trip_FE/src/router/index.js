@@ -7,25 +7,25 @@ import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 import AppAttraction from "@/views/AppAttraction.vue";
 import AppTourBoard from "@/views/AppTourBoard.vue";
-// // import store from "@/store";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
-// const onlyAuthUser = async (to, from, next) => {
-//   const checkUserInfo = store.getters["userStore/checkUserInfo"];
-//   const checkToken = store.getters["userStore/checkToken"];
-//   let token = sessionStorage.getItem("access-token");
-//   if (checkUserInfo != null && token) {
-//     await store.dispatch("userStore/getUserInfo", token);
-//   }
-//   if (!checkToken || checkUserInfo === null) {
-//     alert("로그인이 필요한 페이지입니다..");
-//     // next({ name: "login" });
-//     router.push("/signin");
-//   } else {
-//     next();
-//   }
-// };
+const onlyAuthUser = async (to, from, next) => {
+  const checkUserInfo = store.getters["userStore/checkUserInfo"];
+  const checkToken = store.getters["userStore/checkToken"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo != null && token) {
+    await store.dispatch("userStore/getUserInfo", token);
+  }
+  if (!checkToken || checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    // next({ name: "login" });
+    router.push("/signin");
+  } else {
+    next();
+  }
+};
 
 const routes = [
   {
@@ -82,6 +82,7 @@ const routes = [
       {
         path: "write",
         name: "tourboardwrite",
+        beforeEnter: onlyAuthUser,
         component: () => import("@/components/tourboard/TourBoardWrite"),
       },
     ],

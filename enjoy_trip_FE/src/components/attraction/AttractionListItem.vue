@@ -32,10 +32,10 @@ export default {
     attraction: Object,
   },
   computed: {
-    ...mapState(["isAttractionModalOpen"]),
+    ...mapState("attraction", ["isAttractionModalOpen"]),
   },
   methods: {
-    ...mapActions(["detailAttraction"]),
+    ...mapActions("attraction", ["detailAttraction"]),
     selectAttraction() {
       this.detailAttraction(this.attraction);
     },

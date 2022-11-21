@@ -23,12 +23,15 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "AppTourBoard",
   created() {
     this.getTourList();
+  },
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
   },
   watch: {
     $route: {
@@ -42,13 +45,17 @@ export default {
     },
   },
   mounted() {
+    if (this.userInfo == null) {
+      document.querySelector(".move-btn").setAttribute("style", "display:none");
+    }
+
     if (this.$route.path == "/tourboard/list") {
       document.querySelector(".move-btn").innerHTML = "여행 계획 올리기";
       this.getTourList();
     } else document.querySelector(".move-btn").innerHTML = "목록으로 돌아가기";
   },
   methods: {
-    ...mapActions(["getTourList"]),
+    ...mapActions("attraction", ["getTourList"]),
     movePage() {
       if (this.$route.path == "/tourboard/list") {
         this.$router.push({ name: "tourboardwrite" });

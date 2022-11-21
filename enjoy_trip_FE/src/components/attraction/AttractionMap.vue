@@ -53,7 +53,7 @@ export default {
     AttractionDetail,
   },
   computed: {
-    ...mapState(["attractions"]),
+    ...mapState("attraction", ["attractions"]),
   },
 };
 </script>

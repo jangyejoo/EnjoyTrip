@@ -97,7 +97,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["searchlist", "attractioncart"]),
+    ...mapState("attraction", ["searchlist", "attractioncart"]),
+    ...mapState("userStore", ["userInfo"]),
     state() {
       return this.title.length > 0;
     },
@@ -111,8 +112,11 @@ export default {
     this.CLEAR_ATTRACTION_LIST();
   },
   methods: {
-    ...mapActions(["getSearchList", "writePlan"]),
-    ...mapMutations(["CLEAR_SEARCH_LIST", "CLEAR_ATTRACTION_LIST"]),
+    ...mapActions("attraction", ["getSearchList", "writePlan"]),
+    ...mapMutations("attraction", [
+      "CLEAR_SEARCH_LIST",
+      "CLEAR_ATTRACTION_LIST",
+    ]),
     search() {
       if (this.search) {
         const params = {
@@ -125,6 +129,7 @@ export default {
       let map = new Map();
       map.set("title", this.title);
       map.set("thumbnail", this.attractioncart[0].firstImage);
+      map.set("userId", this.userInfo.userId);
       this.attractioncart.forEach((item, index) => {
         let id = `attractionId${index + 1}`;
         map.set(id, item.contentId);

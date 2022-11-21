@@ -33,7 +33,7 @@ export default {
     tour: Object,
   },
   methods: {
-    ...mapActions(["detailTour"]),
+    ...mapActions("attraction", ["detailTour"]),
     selectTour() {
       this.detailTour(this.tour);
     },
