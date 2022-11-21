@@ -43,6 +43,11 @@ export default {
       },
     },
   },
+  mounted() {
+    if (this.$route.path == "/attraction/list")
+      document.querySelector(".move-btn").innerHTML = "지도로 조회";
+    else document.querySelector(".move-btn").innerHTML = "목록으로 조회";
+  },
   methods: {
     movePage() {
       if (this.$route.path == "/attraction/list") {
