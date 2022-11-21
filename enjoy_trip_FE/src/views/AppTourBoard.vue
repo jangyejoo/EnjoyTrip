@@ -41,6 +41,12 @@ export default {
       },
     },
   },
+  mounted() {
+    if (this.$route.path == "/tourboard/list") {
+      document.querySelector(".move-btn").innerHTML = "여행 계획 올리기";
+      this.getTourList();
+    } else document.querySelector(".move-btn").innerHTML = "목록으로 돌아가기";
+  },
   methods: {
     ...mapActions(["getTourList"]),
     movePage() {
