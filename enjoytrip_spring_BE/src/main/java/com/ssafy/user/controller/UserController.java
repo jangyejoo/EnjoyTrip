@@ -135,13 +135,14 @@ public class UserController {
 	}
 	
 	@PutMapping("/editProfile")
-	public ResponseEntity<?> editProfile(@RequestBody Map<String, String> map, HttpSession session){
+	public ResponseEntity<?> editProfile(@RequestBody Map<String, String> map){
+		
 		logger.debug(map.toString());
 		try {
-			int isUser = userService.checkUser(map);
-			if(isUser == 0) return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//			int isUser = userService.checkUser(map);
+//			if(isUser == 0) return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			userService.editProfile(map);
-			session.setAttribute("userInfo", userService.login(map));
+//			session.setAttribute("userInfo", userService.login(map));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionHandling(e);			
@@ -150,7 +151,8 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody User user, HttpSession session){
+	public ResponseEntity<?> delete(@RequestBody User user){
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		logger.debug(user.toString());
 		try {
 			userService.delete(user.getUserId());
@@ -158,7 +160,6 @@ public class UserController {
 			e.printStackTrace();
 			return exceptionHandling(e);			
 		}
-		session.invalidate();
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -182,6 +183,19 @@ public class UserController {
 		logger.debug(user.toString());
 		try {
 			int a = userService.nameCheck(user.getUserName());
+			logger.debug(">> " +a);
+			return a;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 1;
+		}
+	}
+	@PostMapping("/modifynamecheck")
+	public Integer modifynamecheck(@RequestBody Map<String, String> map) {
+		logger.debug("idcheck");
+//		logger.debug(user.toString());
+		try {
+			int a = userService.modifyNameCheck(map);
 			logger.debug(">> " +a);
 			return a;
 		} catch (Exception e) {

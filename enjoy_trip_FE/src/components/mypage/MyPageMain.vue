@@ -4,15 +4,14 @@
       <b-col sm="3">
         <b-list-group>
           <b-list-group-item @click="changeSide('my-info')">
-            my info
+            내 정보
           </b-list-group-item>
           <b-list-group-item @click="changeSide('modify-info')" active>
-            modify info
+            개인정보 수정
           </b-list-group-item>
-          <b-list-group-item href="#">Action links are easy</b-list-group-item>
-          <b-list-group-item href="#foobar" disabled
-            >Disabled link</b-list-group-item
-          >
+          <b-list-group-item @click="changeSide('delete-user')">
+            회원 탈퇴
+          </b-list-group-item>
         </b-list-group>
       </b-col>
       <b-col sm="9">

@@ -146,7 +146,6 @@ export default new Vuex.Store({
         });
     },
     getAttractionList({ commit }, params) {
-      console.log("attr");
       http
         .get(`/attraction/facilities/list`, { params })
         .then(({ data }) => {
@@ -155,8 +154,7 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.log(error);
-        })
-        .finally(console.log("final"));
+        });
     },
     detailAttraction({ commit }, attraction) {
       http

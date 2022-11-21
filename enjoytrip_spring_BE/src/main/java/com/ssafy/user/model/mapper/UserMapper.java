@@ -30,4 +30,6 @@ public interface UserMapper {
 	Object getRefreshToken(String userId) throws SQLException;
 
 	void deleteRefreshToken(Map<String, String> map) throws SQLException;
+
+	int modifyNameCheck(Map<String, String> map) throws SQLException;
 }

@@ -32,7 +32,7 @@
 	<update id="editProfile" parameterType="map">
 		update members
 		set user_name = #{userName}, user_password = #{userPwd}
-		where user_email = #{userId} and user_password = #{userPwdBefore}
+		where user_email = #{userId}
 	</update>
 	
 	<delete id="delete" parameterType="String">
@@ -81,5 +81,11 @@
 		set refresh_token = #{token, jdbcType=VARCHAR}
 		where user_email = #{userId}
 	</update>
+	
+	<select id="modifyNameCheck" parameterType="map" resultType="Integer">
+		select count(*)
+		from members
+		where user_name = #{userName} and user_email != #{userId}
+	</select>
 	
 </mapper>

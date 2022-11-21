@@ -58,8 +58,6 @@ const userStore = {
             commit("SET_IS_VALID_TOKEN", true);
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
-            console.log("login");
-            console.log(this.isLogin);
           } else {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
@@ -71,41 +69,27 @@ const userStore = {
     },
     async getUserInfo({ commit, dispatch }, token) {
       let decodeToken = jwtDecode(token);
-      // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
-      console.log(`decode token >>>>`);
-      console.log(decodeToken);
       await findById(
         decodeToken.userid,
         ({ data }) => {
           if (data.message === "success") {
-            console.log(data.userInfo);
             commit("SET_USER_INFO", data.userInfo);
             // console.log("3. getUserInfo data >> ", data);
-          } else {
-            console.log("유저 정보 없음!!!!");
           }
         },
         async (error) => {
-          console.log(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
+          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
         }
       );
     },
     async tokenRegeneration({ commit, state }) {
-      console.log(
-        "토큰 재발급 >> 기존 토큰 정보 : {}",
-        sessionStorage.getItem("access-token")
-      );
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {
           if (data.message === "success") {
             let accessToken = data["access-token"];
-            console.log("재발급 완료 >> 새로운 토큰 : {}", accessToken);
             sessionStorage.setItem("access-token", accessToken);
             commit("SET_IS_VALID_TOKEN", true);
           }
@@ -124,7 +108,6 @@ const userStore = {
                   console.log("리프레시 토큰 제거 실패");
                 }
                 alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
-                console.log("refresh logout");
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_IS_VALID_TOKEN", false);
@@ -145,7 +128,6 @@ const userStore = {
         userid,
         ({ data }) => {
           if (data.message === "success") {
-            console.log("userlogoutsuccess");
             commit("SET_IS_LOGIN", false);
             commit("SET_USER_INFO", null);
             commit("SET_IS_VALID_TOKEN", false);
@@ -157,6 +139,9 @@ const userStore = {
           console.log(error);
         }
       );
+    },
+    modifyUserInfo({ commit }, map) {
+      commit("SET_USER_INFO", map);
     },
   },
 };

@@ -91,4 +91,9 @@ public class UserServiceImpl implements UserService {
 		System.out.println(map.toString());
 		sqlSession.getMapper(UserMapper.class).deleteRefreshToken(map);
 	}
+
+	@Override
+	public int modifyNameCheck(Map<String, String> map) throws Exception {
+		return userMapper.modifyNameCheck(map);
+	}
 }

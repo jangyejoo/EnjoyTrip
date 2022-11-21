@@ -35,7 +35,9 @@
 
           <div v-else>
             {{ userInfo.userName }}
-            <b-button variant="danger" to="/mypage">마이페이지</b-button>
+            <b-button variant="danger" to="/mypage" @click="initSection">
+              마이페이지
+            </b-button>
             <button @click="logout">로그아웃</button>
           </div>
         </b-collapse>
@@ -61,11 +63,15 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["userLogout"]),
+    ...mapActions("myPageStore", ["setCurSection"]),
     async logout() {
       await this.userLogout();
     },
     changeIsSide(val) {
       this.isSide = val;
+    },
+    initSection() {
+      this.setCurSection("my-info");
     },
   },
   components: {
@@ -73,7 +79,6 @@ export default {
   },
   mounted() {
     const curRoute = this.$route.name;
-    console.log(curRoute);
     if (curRoute == "SignIn" || curRoute == "SignUp") this.isSide = false;
   },
   computed: {

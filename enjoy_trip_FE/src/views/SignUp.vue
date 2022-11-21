@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 회원가입 -->
-    <b-container>
+    <b-container v-if="user">
       <!-- 이메일 -->
       <b-col sm="6" offset-sm="3">
         <b-form-group
@@ -119,7 +119,7 @@ export default {
       } else return false;
     },
     invalidName() {
-      if (this.isName == 1) return "사용할 수 없는 이메일입니다.";
+      if (this.isName == 1) return "사용할 수 없는 닉네임입니다.";
       return "닉네임은 2자 이상 6자 이하여야합니다.";
     },
     checkPwd() {

@@ -30,4 +30,6 @@ public interface UserService {
 
 	void deleRefreshToken(String userid) throws Exception ;
 
+	int modifyNameCheck(Map<String, String> map) throws Exception ;
+
 }
