@@ -1,21 +1,26 @@
 <template>
   <div>
-    <b-col class="mb-3"
-      ><b-card
-        class="mb-2"
-        :img-src="attraction.firstImage"
-        img-alt="Card Image"
-        img-top
-        img-height="250px"
-        tag="article"
-        style="max-width: 25rem; max-height: 23rem"
+    <b-col class="mb-3">
+      <article
+        class="card mb-2"
+        style="max-width: 25rem, max-height:23 rem"
         @click="selectAttraction"
       >
-        <b-card-title :title="attraction.title" title-tag="strong" />
-        <b-card-text
-          ><p class="mb-0">{{ attraction.contentTypeName }}</p>
-        </b-card-text>
-      </b-card>
+        <div class="img-wrapper" style="overflow: hidden">
+          <img
+            :src="attraction.firstImage"
+            alt="Card Image"
+            class="card-img-top"
+            style="height: 250px"
+          />
+        </div>
+        <div class="card-body">
+          <strong class="card-title">{{ attraction.title }}</strong>
+          <div class="card-text">
+            <p class="mb-0">{{ attraction.contentTypeName }}</p>
+          </div>
+        </div>
+      </article>
     </b-col>
   </div>
 </template>
@@ -49,5 +54,17 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.card:hover {
+  cursor: pointer;
+}
+.img-wrapper {
+  overflow: hidden;
+}
+.card-img-top {
+  transition: all 0.2s linear;
+}
+.card-img-top:hover {
+  transform: scale(1.4);
 }
 </style>

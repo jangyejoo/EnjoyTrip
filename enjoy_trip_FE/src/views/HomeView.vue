@@ -9,12 +9,18 @@
 import RandomAttraction from "@/components/mainpage/HomeViewRandomAttraction.vue";
 import RecommandAttraction from "@/components/mainpage/HomeViewRecommandAttraction.vue";
 
+import { mapActions } from "vuex";
+
 export default {
   name: "HomeView",
   components: {
     RandomAttraction,
     RecommandAttraction,
   },
+  created() {
+    this.getTourList();
+  },
+  methods: { ...mapActions("attraction", ["getTourList"]) },
 };
 </script>
 
