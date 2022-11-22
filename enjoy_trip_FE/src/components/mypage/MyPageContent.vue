@@ -18,6 +18,9 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters("myPageStore", ["getSection"]),
+    // curSection() {
+    //   return this.getSection;
+    // },
   },
   methods: {
     ...mapActions("myPageStore", ["setCurSection"]),
@@ -27,11 +30,14 @@ export default {
     MyInfo,
     DeleteUser,
   },
+  // watch: {
+  //   curSection() {},
+  // },
 };
 </script>
 
 <style scoped>
-div {
+/* div {
   border: 1px solid black;
-}
+} */
 </style>

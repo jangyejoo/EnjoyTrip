@@ -39,9 +39,10 @@
           </b-navbar-nav>
 
           <b-navbar-nav class="mr-1" v-else>
-            <p>
-              {{ userInfo.userName }}
-            </p>
+            <b-nav-item class="user">
+              <span>{{ userInfo.userName }}</span
+              >님 반갑습니다.
+            </b-nav-item>
             <b-nav-item to="/mypage" @click="initSection">
               마이페이지
             </b-nav-item>
@@ -112,5 +113,11 @@ export default {
 
 .nav-item .nav-link:visited {
   color: rgb(0, 0, 0);
+}
+
+.nav-item.user .nav-link {
+  cursor: initial;
+  font-weight: 400;
+  /* color: red; */
 }
 </style>

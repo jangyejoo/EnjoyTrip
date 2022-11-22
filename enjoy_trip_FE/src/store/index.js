@@ -6,6 +6,7 @@ import createPersistedState from "vuex-persistedstate";
 import userStore from "@/store/modules/userStore";
 import myPageStore from "@/store/modules/myPageStore";
 import attraction from "@/store/modules/attraction";
+import sideNavStore from "@/store/modules/sideNavStore";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     userStore,
     myPageStore,
     attraction,
+    sideNavStore,
   },
   plugins: [
     createPersistedState({

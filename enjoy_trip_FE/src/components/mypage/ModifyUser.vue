@@ -2,8 +2,16 @@
   <div>
     <div v-if="!isAuth">
       개인정보 수정을 하려면 비밀번호를 입력해주세요.
-      <b-form-input type="password" v-model="authPwd"></b-form-input>
-      <b-button @click="auth">Button</b-button>
+      <b-container>
+        <b-form-group class="auth-input">
+          <b-form-input
+            type="password"
+            v-model="authPwd"
+            style="display: inline"
+          ></b-form-input>
+          <b-button @click="auth" class="auth-btn">확인</b-button>
+        </b-form-group>
+      </b-container>
     </div>
     <div v-else>
       <!-- <div> -->
@@ -34,9 +42,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-button variant="primary" @click="wantPassChange">
-          비밀번호 변경하기
-        </b-button>
+
         <!-- 비밀번호 -->
         <b-col sm="6" offset-sm="3" v-if="wantPwdChange">
           <b-form-group
@@ -67,10 +73,17 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
+        <div class="btn-container">
+          <b-button @click="wantPassChange">비밀번호 변경하기</b-button>
 
-        <b-button variant="primary" :disabled="availableModify" @click="modify">
-          회원정보 수정
-        </b-button>
+          <b-button
+            variant="primary"
+            :disabled="availableModify"
+            @click="modify"
+          >
+            회원정보 수정
+          </b-button>
+        </div>
       </b-container>
     </div>
   </div>
@@ -187,4 +200,49 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.auth-input {
+  width: 500px;
+  margin: auto;
+  /* border: 2px solid red; */
+}
+
+.auth-input input {
+  margin-top: 10px;
+  width: 300px;
+  margin-right: 30px;
+}
+
+.auth-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid #00ce7c;
+}
+
+.auth-btn:hover {
+  background-color: #00ce7c;
+  /* border: 1px solid #007e4b; */
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: auto;
+}
+
+.btn-container button {
+  margin: 10px 0;
+  width: 200px;
+  background-color: white;
+  color: black;
+  border: 1px solid #00ce7c;
+}
+
+.btn-container button:hover {
+  background-color: #00ce7c;
+  /* border: 1px solid #007e4b; */
+  color: white;
+}
+</style>
