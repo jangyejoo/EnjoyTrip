@@ -4,6 +4,7 @@
       <b-form-input
         id="input-title"
         v-model="title"
+        size="lg"
         :state="state"
         placeholder="제목을 입력하세요"
         trim

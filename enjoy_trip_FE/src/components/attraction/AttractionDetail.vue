@@ -11,38 +11,85 @@
     @hidden="close"
   >
     <b-container>
-      <b-row class="gy-4">
-        <b-col col lg="8" class="mb-3">
-          <b-img
-            :src="detail.firstImage"
-            rounded
-            style="width: 100%; heigth: 500px"
-          ></b-img>
-        </b-col>
-        <b-col col lg="4" class="info">
-          <b-card border-variant="dark" :header="detail.title" align="left">
-            <b-card-text
-              ><strong>Category</strong>
-              {{ detail.contentTypeName }}</b-card-text
-            >
-            <b-card-text v-if="detail.addr1 && detail.addr1.length != 0"
-              ><strong>Address</strong> {{ detail.addr1 }}
-              {{ detail.addr2 }}</b-card-text
-            >
-            <b-card-text v-if="detail.tel && detail.tel.length != 0"
-              ><strong>Tel</strong> {{ detail.tel }}</b-card-text
-            >
-          </b-card>
-        </b-col>
+      <b-row class="gy-4" no-gutters>
+        <b-img
+          :src="detail.firstImage"
+          rounded
+          style="width: 100%; max-height: 400px"
+        ></b-img>
       </b-row>
-      <b-col
-        col
-        lg="12"
-        class="overview"
-        v-if="detail.overview && detail.overview.length != 0"
-      >
-        <h3>Overview</h3>
-        <p>
+      <b-col style="padding: 0" lg="12" class="overview mt-3">
+        <h3>
+          {{ detail.title }}
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 12"
+            style="background-color: #00ce7c"
+            >관광지</b-badge
+          >
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 14"
+            style="background-color: #007bff"
+            >문화시설
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 15"
+            style="background-color: #28a745"
+            >행사/공연/축제
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 25"
+            style="background-color: #ffc107"
+            >여행코스
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 28"
+            style="background-color: #343a40"
+            >레포츠
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 32"
+            style="background-color: #6c757d"
+            >숙박
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 38"
+            style="background-color: #17a2b8"
+            >쇼핑
+          </b-badge>
+
+          <b-badge
+            pill
+            v-if="detail.contentTypeId == 39"
+            style="background-color: #ff8491"
+            >음식점
+          </b-badge>
+        </h3>
+        <span v-if="detail.addr1 && detail.addr1 != 0">
+          <font-awesome-icon icon="fa-solid fa-map-pin" />
+          {{ detail.addr1 }} &nbsp; {{ detail.addr2 }} &nbsp; &nbsp;
+        </span>
+        <span v-if="detail.tel && detail.tel != 0">
+          <font-awesome-icon icon="fa-solid fa-phone" />
+          {{ detail.tel }} &nbsp; &nbsp;
+        </span>
+
+        <p
+          class="mt-3 border-left"
+          style="padding: 15px"
+          v-if="detail.overview && detail.overview.length != 0"
+        >
           {{ detail.overview }}
         </p>
       </b-col>
