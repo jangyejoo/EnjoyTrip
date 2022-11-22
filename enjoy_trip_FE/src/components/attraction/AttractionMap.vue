@@ -1,12 +1,12 @@
 <template>
   <b-row>
-    <b-col lg="6" id="mapCol">
+    <b-col lg="8" id="mapCol">
       <KakaoMap type="attractionmap" />
     </b-col>
 
     <b-list-group
       v-if="attractions && attractions.length != 0"
-      class="overflow-auto col-lg-6"
+      class="overflow-auto col-lg-4"
       style="height: 500px"
     >
       <attraction-map-item
@@ -17,7 +17,7 @@
       <attraction-detail></attraction-detail>
     </b-list-group>
     <b-col
-      lg="6"
+      lg="4"
       v-else
       style="
         display: flex;

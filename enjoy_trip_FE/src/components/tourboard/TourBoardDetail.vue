@@ -29,13 +29,17 @@
 
     <template #modal-footer>
       <div class="w-100">
-        <b-button variant="primary" class="float-right" @click="close">
+        <b-button
+          variant="outline"
+          class="float-right btn-close"
+          @click="close"
+        >
           닫기
         </b-button>
 
         <b-button
           v-if="userInfo && userInfo.userId == tour.userId"
-          variant="danger"
+          variant="outline-danger"
           class="float-right mr-2"
           @click="deleteSharedPlan"
         >
@@ -103,5 +107,13 @@ export default {
     top: 0;
     width: 3px;
   }
+}
+.btn-close {
+  color: #00ce7c;
+  border: 1px solid #00ce7c;
+}
+.btn-close:hover {
+  color: white;
+  background-color: #00ce7c; /* border: 1px solid #007e4b; */
 }
 </style>

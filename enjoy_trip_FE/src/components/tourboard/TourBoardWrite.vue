@@ -10,7 +10,7 @@
       ></b-form-input>
     </b-form-group>
     <b-row class="mb-3">
-      <b-col lg="6"
+      <b-col lg="8"
         ><b-input-group class="mb-3">
           <b-form-input
             id="input-search"
@@ -19,14 +19,14 @@
             trim
           ></b-form-input>
           <b-input-group-append>
-            <b-button variant="outline-primary" @click="search">검색</b-button>
+            <b-button variant="outline" @click="search">검색</b-button>
           </b-input-group-append>
         </b-input-group>
         <KakaoMap id="mapCol" type="tourboardwrite" />
       </b-col>
       <b-list-group
         v-if="searchlist && searchlist.length != 0"
-        class="overflow-auto col-lg-6"
+        class="overflow-auto col-lg-4"
         style="height: 554px; padding-left: 15px"
       >
         <tour-board-map-item
@@ -38,7 +38,7 @@
       </b-list-group>
       <b-col
         v-else
-        lg="6"
+        lg="4"
         style="
           display: flex;
           justify-content: center;
@@ -64,7 +64,7 @@
     ></tour-board-write-item>
     <b-button
       class="mt-3 mb-3"
-      variant="primary"
+      variant="outline"
       block
       @click="write"
       :disabled="availableWrite"
@@ -146,5 +146,13 @@ export default {
 <style scoped>
 #mapCol {
   padding: 0px;
+}
+.btn {
+  color: #00ce7c;
+  border: 1px solid #00ce7c;
+}
+.btn:hover {
+  color: white;
+  background-color: #00ce7c; /* border: 1px solid #007e4b; */
 }
 </style>
