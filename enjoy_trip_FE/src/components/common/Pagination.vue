@@ -55,4 +55,8 @@ export default {
   float: none;
   margin: 0 auto;
 }
+.active {
+  border-color: #00ce7c;
+  background: #00ce7c !important;
+}
 </style>

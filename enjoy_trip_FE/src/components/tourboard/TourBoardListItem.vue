@@ -18,7 +18,7 @@
         <div class="card-text">
           <p class="mb-0">{{ tour.userName }}</p>
           <p class="mb-0">
-            {{ tour.registerDate | moment("LLL") }}
+            {{ tour.registerDate | moment("YYYY-MM-DD LT") }}
             <span class="mb-0 float-right">
               <font-awesome-icon icon="fa-solid fa-eye" /> {{ tour.hit }}</span
             >

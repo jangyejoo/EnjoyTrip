@@ -2,13 +2,15 @@
   <div id="app">
     <the-navi></the-navi>
     <router-view />
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
 import TheNavi from "@/components/common/AppNavi.vue";
+import TheFooter from "@/components/common/footer.vue";
 export default {
-  components: { TheNavi },
+  components: { TheNavi, TheFooter },
 };
 </script>
 

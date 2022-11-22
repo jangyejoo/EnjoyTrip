@@ -6,17 +6,17 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-row>
-      <b-col cols="3">
+      <b-col cols="5">
         <b-img thumbnail :src="attraction.firstImage" alt="Image 1"></b-img>
       </b-col>
-      <b-col cols="9" style="padding: 0px" :id="attraction.contentId">
+      <b-col cols="7" style="padding: 0px" :id="attraction.contentId">
         <h5>{{ attraction.title }}</h5>
         {{ attraction.contentTypeName }}
         <b-button
           size="sm"
           class="float-right mr-3"
           pill
-          variant="outline-primary"
+          variant="outline"
           @click="selectAttraction"
           >상세보기</b-button
         >
@@ -61,5 +61,14 @@ export default {
 .img-thumbnail {
   width: 7rem;
   height: 5rem;
+}
+.btn {
+  color: #00ce7c;
+  border: 1px solid #00ce7c;
+}
+.btn:hover {
+  color: white;
+
+  background-color: #00ce7c; /* border: 1px solid #007e4b; */
 }
 </style>

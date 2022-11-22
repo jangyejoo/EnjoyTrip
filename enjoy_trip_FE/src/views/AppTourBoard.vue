@@ -12,7 +12,7 @@
       <b-button
         class="move-btn float-right"
         pill
-        variant="outline-primary"
+        variant="outline"
         @click="movePage"
         >여행 계획 올리기</b-button
       >
@@ -73,7 +73,14 @@ export default {
 }
 .btn {
   margin-right: 1rem;
+  color: #00ce7c;
+  border: 1px solid #00ce7c;
 }
+.btn:hover {
+  color: white;
+  background-color: #00ce7c; /* border: 1px solid #007e4b; */
+}
+
 p {
   display: block;
   overflow: hidden;

@@ -6,10 +6,10 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-row>
-      <b-col cols="3">
+      <b-col lg="5" md="3">
         <b-img thumbnail :src="attraction.firstImage" alt="Image 1"></b-img>
       </b-col>
-      <b-col cols="9" style="padding: 0px">
+      <b-col lg="7" md="9" style="padding: 0px">
         <h5>{{ attraction.title }}</h5>
         {{ attraction.contentTypeName }}
         <b-form-checkbox

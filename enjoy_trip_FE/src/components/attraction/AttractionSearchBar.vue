@@ -17,7 +17,7 @@
       ></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-button block variant="outline-primary" @click="search">검색</b-button>
+      <b-button block variant="outline" @click="search">검색</b-button>
     </b-col>
   </b-row>
 </template>
@@ -69,4 +69,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.btn {
+  color: #00ce7c;
+  border: 1px solid #00ce7c;
+}
+.btn:hover {
+  color: white;
+  background-color: #00ce7c; /* border: 1px solid #007e4b; */
+}
+</style>
