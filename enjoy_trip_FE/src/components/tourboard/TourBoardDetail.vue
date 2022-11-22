@@ -13,7 +13,7 @@
       <h2>{{ tour.title }}</h2>
       <p class="mb-0">{{ tour.userName }}</p>
       <p class="mb-0">
-        {{ tour.registerDate }}
+        {{ tour.registerDate | moment("LLL") }}
         <span class="mb-0 float-right">
           <font-awesome-icon icon="fa-solid fa-eye" /> {{ tour.hit }}</span
         >
