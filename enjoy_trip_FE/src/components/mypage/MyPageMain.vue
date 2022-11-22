@@ -3,7 +3,11 @@
     <b-row>
       <b-col sm="3">
         <b-list-group ref="selectors">
-          <b-list-group-item @click="changeSide('my-info')" id="my-info">
+          <b-list-group-item
+            @click="changeSide('my-info')"
+            id="my-info"
+            class="my-btn"
+          >
             내 정보
           </b-list-group-item>
           <b-list-group-item
@@ -75,5 +79,22 @@ export default {
 .container {
   position: relative;
   top: 50px;
+}
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  color: #00ce7c;
+}
+
+.list-group-item.active {
+  background-color: #00ce7c;
+  border: 1px solid #009258;
+  font-weight: 700;
+}
+
+.list-group-item.active:hover {
+  color: white;
 }
 </style>

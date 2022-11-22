@@ -219,9 +219,10 @@ export default {
   border: 1px solid #00ce7c;
 }
 
-.auth-btn:hover {
-  background-color: #00ce7c;
-  /* border: 1px solid #007e4b; */
+.auth-btn:hover,
+.auth-btn:active,
+.auth-btn:focus {
+  background-color: #00ce7c !important;
 }
 
 .btn-container {
@@ -240,9 +241,10 @@ export default {
   border: 1px solid #00ce7c;
 }
 
-.btn-container button:hover {
-  background-color: #00ce7c;
-  /* border: 1px solid #007e4b; */
+.btn-container button:hover,
+.btn-container button:active,
+.btn-container button:focus {
+  background-color: #00ce7c !important;
   color: white;
 }
 </style>

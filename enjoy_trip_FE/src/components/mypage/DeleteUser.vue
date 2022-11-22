@@ -72,8 +72,9 @@ export default {
   border: 1px solid #00ce7c;
 }
 
-.auth-btn:hover {
-  background-color: #00ce7c;
-  /* border: 1px solid #007e4b; */
+.auth-btn:hover,
+.auth-btn:active,
+.auth-btn:focus {
+  background-color: #00ce7c !important;
 }
 </style>

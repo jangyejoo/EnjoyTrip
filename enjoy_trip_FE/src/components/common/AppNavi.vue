@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="white" variant="white">
       <b-container>
-        <b-navbar-brand to="/" @click="changeIsSide(true)">
+        <b-navbar-brand @click="tog('/')">
           <img
             src="@/assets/img/logo_keyColor.png"
             alt="로고"
@@ -10,11 +10,11 @@
           />
         </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
 
         <b-collapse id="nav-collapse" is-nav>
           <!-- search -->
-          <b-navbar-nav class="m-auto">
+          <!-- <b-navbar-nav class="m-auto">
             <b-nav-form>
               <b-form-input
                 size="sm"
@@ -25,82 +25,108 @@
                 >Search</b-button
               >
             </b-nav-form>
-          </b-navbar-nav>
+          </b-navbar-nav> -->
           <!-- 우측 섹션 -->
-          <b-navbar-nav class="mr-1" v-if="userInfo == null">
-            <b-nav-item to="/SignIn" @click="changeIsSide(false)">
-              로그인
-            </b-nav-item>
-            <b-nav-text>|</b-nav-text>
-            <!-- <b-nav-text</b-nav-text> -->
-            <b-nav-item to="/SignUp" @click="changeIsSide(false)">
-              회원가입
-            </b-nav-item>
-          </b-navbar-nav>
+          <div class="collapse navbar-collapse justify-content-end">
+            <b-navbar-nav class="mr-1" v-if="userInfo == null">
+              <b-nav-item @click="tog('/SignIn')"> 로그인 </b-nav-item>
+              <b-nav-text>|</b-nav-text>
+              <!-- <b-nav-text</b-nav-text> -->
+              <b-nav-item @click="tog('/SignUp')"> 회원가입 </b-nav-item>
+            </b-navbar-nav>
 
-          <b-navbar-nav class="mr-1" v-else>
-            <b-nav-item class="user">
-              <span>{{ userInfo.userName }}</span
-              >님 반갑습니다.
-            </b-nav-item>
-            <b-nav-item to="/mypage" @click="initSection">
-              마이페이지
-            </b-nav-item>
-            <b-nav-text>|</b-nav-text>
-            <!-- <b-nav-text</b-nav-text> -->
-            <b-nav-item @click="logout"> 로그아웃 </b-nav-item>
-          </b-navbar-nav>
-
-          <!-- <div v-else>
-            {{ userInfo.userName }}
-            <b-button variant="danger" to="/mypage" @click="initSection">
-              마이페이지
-            </b-button>
-            <button @click="logout">로그아웃</button>
-          </div> -->
+            <b-navbar-nav class="mr-1" v-else>
+              <b-nav-item class="user">
+                <span>{{ userInfo.userName }}</span
+                >님 반갑습니다.
+              </b-nav-item>
+              <b-nav-item @click="initSection('/mypage')">
+                마이페이지
+              </b-nav-item>
+              <b-nav-text>|</b-nav-text>
+              <b-nav-item @click="logout"> 로그아웃 </b-nav-item>
+            </b-navbar-nav>
+          </div>
         </b-collapse>
       </b-container>
     </b-navbar>
     <!-- 하위 섹션 -->
-    <navi-side v-show="isSide"></navi-side>
+    <navi-side></navi-side>
   </div>
 </template>
 
 <script>
 import NaviSide from "@/components/common/NaviSide.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
   // import NaviSide from "@/components/common/Navi.Side.vue",
 
   name: "AppNavi",
-  data() {
-    return {
-      isSide: true,
-    };
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
+    ...mapGetters("sideNavStore", ["getPath"]),
+    ...mapMutations("sideNavStore", ["SET_PATH"]),
+    changeTab() {
+      return this.getPath;
+    },
   },
+
   methods: {
     ...mapActions("userStore", ["userLogout"]),
     ...mapActions("myPageStore", ["setCurSection"]),
+    ...mapActions("sideNavStore", ["changePath"]),
     async logout() {
       await this.userLogout();
     },
-    changeIsSide(val) {
-      this.isSide = val;
-    },
-    initSection() {
+    initSection(link) {
       this.setCurSection("my-info");
+      this.$router.push(link);
+      this.changePath(link);
+    },
+    tog(link) {
+      console.log("tog");
+      this.$router.push(link);
+      this.changePath(link);
+    },
+    navLine(idx, col) {
+      let i = 0;
+      while (i < col.length) {
+        console.log(i);
+        if (i == idx) {
+          col[i].children[0].classList.add("active");
+        } else {
+          col[i].children[0].classList.remove("active");
+        }
+        i++;
+      }
+    },
+    watch: {
+      changeTab(path) {
+        let navs = this.$refs.tabNav.children;
+        console.log(path);
+        switch (path) {
+          case "/":
+            this.navLine(0, navs);
+            break;
+
+          case "/attraction":
+            this.navLine(1, navs);
+            break;
+
+          case "/tourboard":
+            this.navLine(2, navs);
+            break;
+          default:
+            console.log("no path");
+            this.navLine(4, navs);
+            break;
+        }
+      },
     },
   },
   components: {
     NaviSide,
-  },
-  mounted() {
-    const curRoute = this.$route.name;
-    if (curRoute == "SignIn" || curRoute == "SignUp") this.isSide = false;
-  },
-  computed: {
-    ...mapState("userStore", ["userInfo"]),
   },
 };
 </script>

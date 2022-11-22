@@ -1,21 +1,22 @@
 const sideNavStore = {
   namespaced: true,
   state: {
-    curRoute: "home",
+    path: "/",
   },
   getters: {
-    getRoute: function (state) {
-      return state.curRoute;
+    getPath: function (state) {
+      return state.path;
     },
   },
   mutations: {
-    SET_ROUTE: (state, changedRoute) => {
-      state.curRoute = changedRoute;
+    SET_PATH: (state, path) => {
+      state.path = path;
     },
   },
   actions: {
-    changeRoute({ commit }, route) {
-      commit("SET_ROUTE", route.name);
+    changePath({ commit }, path) {
+      console.log("action path >>>>>>>>>>>>>>>>>");
+      commit("SET_PATH", path);
     },
   },
 };

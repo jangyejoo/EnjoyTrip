@@ -1,51 +1,85 @@
 <template>
   <b-nav tabs class="shadow-sm">
     <b-container>
-      <!-- @click="routerToggle" -->
-
-      <b-row ref="tog" @click="routerToggle">
-        <b-nav-item class="ml-3" to="/" id="home" active>홈 </b-nav-item>
-        <b-nav-item to="/attraction" id="attractionlist">
-          관광지 찾기
-        </b-nav-item>
-        <b-nav-item to="/tourboard" id="tourboardlist">
-          여행 계획 게시판
-        </b-nav-item>
-      </b-row>
+      <div>
+        <b-nav ref="tabNav">
+          <b-nav-item @click="tog('/')">홈</b-nav-item>
+          <b-nav-item @click="tog('/attraction')">관광지 찾기</b-nav-item>
+          <b-nav-item @click="tog('/tourboard')">여행계획 게시판</b-nav-item>
+        </b-nav>
+      </div>
     </b-container>
   </b-nav>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 const sideNavStore = "sideNavStore";
 
 export default {
   name: "NaviSide",
-
   computed: {
-    ...mapGetters(sideNavStore, ["getRoute"]),
-    ...mapMutations(sideNavStore, ["SET_ROUTE"]),
-    getCurRoute: function () {
-      return this.getRoute;
+    ...mapGetters(sideNavStore, ["getPath"]),
+    ...mapMutations(sideNavStore, ["SET_PATH"]),
+    changeTab() {
+      return this.getPath;
     },
   },
   methods: {
-    ...mapActions(sideNavStore, ["changeRoute"]),
-    routerToggle() {
-      this.changeRoute(this.$route);
+    ...mapActions(sideNavStore, ["changePath"]),
+    tog(link) {
+      this.$router.push(link);
+      this.changePath(link);
+    },
+    navLine(idx, col) {
+      console.log(col);
+      let i = 0;
+      while (i < col.length) {
+        console.log(i);
+        if (i == idx) {
+          col[i].children[0].classList.add("active");
+        } else {
+          col[i].children[0].classList.remove("active");
+        }
+        i++;
+      }
     },
   },
+  mounted: function () {
+    let navs = this.$refs.tabNav.children;
+    switch (this.getPath) {
+      case "/":
+        this.navLine(0, navs);
+        break;
+
+      case "/attraction":
+        this.navLine(1, navs);
+        break;
+
+      case "/tourboard":
+        this.navLine(2, navs);
+        break;
+    }
+  },
   watch: {
-    getCurRoute(curRoute) {
-      const items = this.$refs.tog.children;
-      for (const item of items) {
-        if (item.id == curRoute) {
-          item.children[0].classList.add("active");
-        } else {
-          item.children[0].classList.remove("active");
-        }
+    changeTab(path) {
+      let navs = this.$refs.tabNav.children;
+      switch (path) {
+        case "/":
+          this.navLine(0, navs);
+          break;
+
+        case "/attraction":
+          this.navLine(1, navs);
+          break;
+
+        case "/tourboard":
+          this.navLine(2, navs);
+          break;
+        default:
+          this.navLine(4, navs);
+          break;
       }
     },
   },
