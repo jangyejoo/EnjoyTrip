@@ -19,7 +19,12 @@
             trim
           ></b-form-input>
           <b-input-group-append>
-            <b-button variant="outline" @click="search">검색</b-button>
+            <b-button
+              variant="outline"
+              @click="search"
+              :disabled="availableSearch"
+              >검색</b-button
+            >
           </b-input-group-append>
         </b-input-group>
         <KakaoMap id="mapCol" type="tourboardwrite" />
@@ -104,6 +109,10 @@ export default {
     },
     availableWrite() {
       if (this.title != "") return false;
+      else return true;
+    },
+    availableSearch() {
+      if (this.keyword != "") return false;
       else return true;
     },
   },
