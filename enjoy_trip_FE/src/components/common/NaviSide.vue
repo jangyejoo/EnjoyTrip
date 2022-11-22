@@ -33,10 +33,10 @@ export default {
       this.changePath(link);
     },
     navLine(idx, col) {
-      console.log(col);
+      // console.log(col);
       let i = 0;
       while (i < col.length) {
-        console.log(i);
+        // console.log(i);
         if (i == idx) {
           col[i].children[0].classList.add("active");
         } else {
@@ -102,5 +102,6 @@ export default {
 .nav-tabs .nav-link.active {
   border-color: white;
   border-bottom: 3px solid #00ce7c;
+  font-weight: 700;
 }
 </style>
