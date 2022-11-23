@@ -15,7 +15,6 @@ const sideNavStore = {
   },
   actions: {
     changePath({ commit }, path) {
-      console.log("action path >>>>>>>>>>>>>>>>>");
       commit("SET_PATH", path);
     },
   },

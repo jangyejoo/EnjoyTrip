@@ -6,7 +6,7 @@
           <img
             src="@/assets/img/logo_keyColor.png"
             alt="로고"
-            style="width: 80px"
+            style="width: 80px; cursor: pointer"
           />
         </b-navbar-brand>
 
@@ -51,7 +51,7 @@
       </b-container>
     </b-navbar>
     <!-- 하위 섹션 -->
-    <navi-side></navi-side>
+    <navi-side class="zidx"></navi-side>
   </div>
 </template>
 
@@ -76,6 +76,8 @@ export default {
     ...mapActions("sideNavStore", ["changePath"]),
     async logout() {
       await this.userLogout();
+      this.$router.push("/");
+      this.changePath("/");
     },
     initSection(link) {
       this.setCurSection("my-info");
@@ -83,44 +85,8 @@ export default {
       this.changePath(link);
     },
     tog(link) {
-      console.log("tog");
       this.$router.push(link);
       this.changePath(link);
-    },
-    navLine(idx, col) {
-      let i = 0;
-      while (i < col.length) {
-        console.log(i);
-        if (i == idx) {
-          col[i].children[0].classList.add("active");
-        } else {
-          col[i].children[0].classList.remove("active");
-        }
-        i++;
-      }
-    },
-  },
-  watch: {
-    changeTab(path) {
-      let navs = this.$refs.tabNav.children;
-      console.log(path);
-      switch (path) {
-        case "/":
-          this.navLine(0, navs);
-          break;
-
-        case "/attraction":
-          this.navLine(1, navs);
-          break;
-
-        case "/tourboard":
-          this.navLine(2, navs);
-          break;
-        default:
-          console.log("no path");
-          this.navLine(4, navs);
-          break;
-      }
     },
   },
   components: {
@@ -143,5 +109,10 @@ export default {
   cursor: initial;
   font-weight: 400;
   /* color: red; */
+}
+
+.zidx {
+  z-index: 100;
+  background-color: white;
 }
 </style>

@@ -1,74 +1,26 @@
 <template>
-  <b-container class="h-100">
-    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
-
-    <b-row class="justify-content-md-center h-100">
-      <!-- no image 대응할것 없으면 css무너짐 사진 크기또한 고정 시켜야 함 -->
-      <!-- <b-button @click="newRandAttraction">bool</b-button> -->
-      <div class="card-box-cus">
-        <!-- v-if="!visi" -->
-        <div class="card-box-pop animate__animated animate_custom" ref="pop">
-          <img
-            src="../../assets/img/logo_keyColor01.png"
-            alt=""
-            class="animate__animated animate_custom"
-            ref="popimg"
-          />
-        </div>
-        <!-- <div
-          v-else
-          class="card-box-pop animate__animated animate__zoomIn animate_custom"
-        >
-          <img
-            src="../../assets/img/logo_keyColor01.png"
-            alt=""
-            class="animate__animated animate__tada animate_custom"
-            ref="tada"
-          />
-        </div> -->
-        <b-card
-          :img-src="`${attraction.firstImage}`"
-          img-alt="Card image"
-          img-left
-          img-height="300px"
-          img-width="300px"
-          class="mb-3 w-100 h-100 img-size"
-          ref="card"
-        >
-          <!-- 글이나 사진이 지나치게 길어지면 card의 크기가 변함 고정시키고 overflow대응할것 -->
-          <b-card-body class="h-75">
-            <b-card-text>
-              <div id="info">
-                <h3>{{ attraction.title }}</h3>
-                <h6>{{ attraction.addr1 }} {{ attraction.addr2 }}</h6>
-                <!-- <p class="desc">{{ attraction.contentTypeName }}</p> -->
-              </div>
-            </b-card-text>
-          </b-card-body>
-          <b-card-footer
-            footer-bg-variant="white"
-            footer-border-variant="white"
-            footer-class="card-footer"
-            align-v="end"
-          >
-            <!-- attraction에는 지도 정보를 같이 줘서 이동 -->
-            <b-button variant="danger" to="/attraction"
-              >지도로 바로가기</b-button
-            >
-            <!-- 이 부분 또한 백엔드와 연결 후, 기능 추가할것-->
-            <!-- 누르면 카드를 가리면서 enjoytrip로고 나온뒤 출력하기 lazy loading용으로 나쁘지 않아보임 -->
-            <b-button
-              variant="success"
-              @click="anotherAttraction"
-              :disable="visi"
-            >
+  <div class="randCon">
+    <div class="anime" ref="pop">
+      <b-card
+        overlay
+        :img-src="`${attraction.firstImage}`"
+        img-alt="Card Image"
+        class="randCard animate__animated animate__faster"
+        ref="card"
+      >
+        <div class="gray">
+          <div class="suggestion">
+            이런 여행지는 어떠신가요?
+            <b-button variant="success" @click="anotherAttraction" class="btn">
               다른 관광지 보기
             </b-button>
-          </b-card-footer>
-        </b-card>
-      </div>
-    </b-row>
-  </b-container>
+          </div>
+          <p class="title">{{ attraction.title }}</p>
+          <p class="addr">{{ attraction.addr1 }} {{ attraction.addr2 }}</p>
+        </div>
+      </b-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -135,32 +87,16 @@ export default {
     },
     newRandAttraction() {
       let cardStyle = this.$refs.card.classList;
-      let pop = this.$refs.pop.classList;
-      let popImg = this.$refs.popimg.classList;
-      pop.remove("animate__bounceOut");
-      pop.add("animate__bounceIn");
-      cardStyle.remove("zIdx");
-      // this.visi = true;
-
+      cardStyle.remove("animate__fadeInRightBig");
+      cardStyle.add("animate__fadeOutLeftBig");
       setTimeout(() => {
-        popImg.add("animate__tada");
-        pop.remove("animate__bounceIn");
-        // this.visi = false;
+        cardStyle.remove("animate__fadeOutLeftBig");
+        cardStyle.add("animate__fadeInRightBig");
       }, 1000);
-
-      setTimeout(() => {
-        popImg.remove("animate__tada");
-      }, 1800);
-
-      setTimeout(() => {
-        pop.add("animate__bounceOut");
-        cardStyle.add("zIdx");
-      }, 2300);
     },
   },
   async mounted() {
     this.anotherAttraction();
-    // this.newRandAttraction();
   },
 };
 </script>
@@ -189,39 +125,106 @@ export default {
 
 .card-box-cus {
   position: relative;
-  width: 700px;
-  height: 300px;
+  width: 800px;
+  height: 400px;
+  padding-top: 8px;
 }
 
-/* 팝업 이펙트 넣을곳 */
-.card-box-pop {
-  position: absolute;
-  z-index: 10;
-  left: 0;
-  top: 1px;
-  width: 700px;
-  height: 300px;
-  /* transform: translateY(1px); */
-  border-radius: 3px;
-  background-image: url("../../assets/img/popbg.webp");
+/*
+
+
+*/
+
+.randCard {
+  /* display: none; */
+  width: 100%;
+  height: 880px;
+  background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.card-box-pop img {
-  width: 200px;
+.gray {
   position: absolute;
-  left: calc(50% - 100px);
-  top: calc(50% - 70px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.527);
+  color: white;
 }
 
-.animate_custom {
-  animation-duration: 0.8s;
+.zidx {
+  z-index: 5;
 }
-/* .zIdx {
-  z-index: 20;
-} */
 
-/* .bg1 {
-  background-image: ;
-} */
+.randCardBg {
+  margin: 0;
+}
+
+/*
+
+
+
+
+*/
+
+.btn,
+.btn:focus {
+  margin-left: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  border: 1px solid #00ce7c;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #00ce7c !important;
+  border: 1px solid #008f56;
+}
+.btn:focus {
+  box-shadow: none;
+}
+
+.title {
+  text-align: start;
+  font-size: 80px;
+  margin-left: 220px;
+  /* margin-top: 80px; */
+}
+
+.addr {
+  text-align: start;
+  font-size: 40px;
+  margin-left: 230px;
+}
+
+.anime {
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 880px; */
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 880px;
+  background-image: url("../../assets/img/or2.gif");
+  /* z-index: 10; */
+}
+
+.poplogo {
+  position: absolute;
+  width: 400px;
+  top: calc(50% - 150px);
+  left: calc(50% - 200px);
+}
+
+.suggestion {
+  text-align: start;
+  font-size: 20px;
+  margin-left: 230px;
+  margin-top: 80px;
+}
 </style>

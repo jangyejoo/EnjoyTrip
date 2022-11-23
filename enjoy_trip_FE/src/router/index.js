@@ -27,6 +27,10 @@ const onlyAuthUser = async (to, from, next) => {
   }
 };
 
+const toTop = function () {
+  window.scrollTo(0, 0);
+};
+
 const routes = [
   {
     path: "/",
@@ -83,6 +87,7 @@ const routes = [
         path: "write",
         name: "tourboardwrite",
         beforeEnter: onlyAuthUser,
+        toTop,
         component: () => import("@/components/tourboard/TourBoardWrite"),
       },
       {
