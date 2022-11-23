@@ -76,6 +76,8 @@ export default {
     ...mapActions("sideNavStore", ["changePath"]),
     async logout() {
       await this.userLogout();
+      this.$router.push("/");
+      this.changePath("/");
     },
     initSection(link) {
       this.setCurSection("my-info");
@@ -83,7 +85,6 @@ export default {
       this.changePath(link);
     },
     tog(link) {
-      console.log("tog");
       this.$router.push(link);
       this.changePath(link);
     },

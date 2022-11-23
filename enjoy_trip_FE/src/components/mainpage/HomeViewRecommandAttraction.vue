@@ -3,9 +3,7 @@
     <b-container>
       <h3 class="title">
         지금 뜨는 여행계획
-        <router-link :to="{ name: 'tourboardlist' }" class="more"
-          >더보기</router-link
-        >
+        <p @click="tog('/attraction')" class="more">더보기</p>
       </h3>
     </b-container>
     <b-container v-if="tours && tours.length != 0" class="bv-example-row mt-3">
@@ -37,6 +35,7 @@
 import TourBoardListItem from "@/components/tourboard/TourBoardListItem";
 import TourBoardDetail from "@/components/tourboard/TourBoardDetail.vue";
 import { Swiper } from "vue-awesome-swiper";
+import { mapActions, mapMutations } from "vuex";
 import "swiper/css/swiper.css";
 
 import { mapState } from "vuex";
@@ -67,7 +66,11 @@ export default {
       },
     };
   },
-  computed: { ...mapState("attraction", ["tours"]) },
+  computed: {
+    ...mapState("attraction", ["tours"]),
+
+    ...mapMutations("sideNavStore", ["SET_PATH"]),
+  },
   created() {
     let toursByHit = this.tours.sort((a, b) => b.hit - a.hit);
     let i = 0;
@@ -75,6 +78,14 @@ export default {
       this.listData.push(toursByHit[i]);
       i++;
     }
+  },
+  methods: {
+    ...mapActions("sideNavStore", ["changePath"]),
+    tog(link) {
+      console.log("tog");
+      this.$router.push(link);
+      this.changePath(link);
+    },
   },
 };
 </script>
