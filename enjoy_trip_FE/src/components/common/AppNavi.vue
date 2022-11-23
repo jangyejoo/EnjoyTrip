@@ -95,7 +95,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .nav-item .nav-link,
 .navbar-text {
   color: black;
@@ -114,5 +114,12 @@ export default {
 .zidx {
   z-index: 100;
   background-color: white;
+}
+
+body {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 </style>
