@@ -97,6 +97,7 @@ export default {
       }
     },
     modifySharedPlan() {
+      this.close();
       this.$router.push({ name: "tourboardmodify" });
     },
   },
