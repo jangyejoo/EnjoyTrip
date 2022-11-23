@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <the-navi></the-navi>
-    <router-view />
+    <app-navi class="fix"></app-navi>
+    <router-view class="main" />
     <the-footer></the-footer>
   </div>
 </template>
 
 <script>
-import TheNavi from "@/components/common/AppNavi.vue";
+import AppNavi from "@/components/common/AppNavi.vue";
 import TheFooter from "@/components/common/footer.vue";
 export default {
-  components: { TheNavi, TheFooter },
+  components: { AppNavi, TheFooter },
 };
 </script>
 
@@ -38,5 +38,16 @@ nav a.router-link-exact-active {
 
 .keycolor {
   background-color: #00ce7c;
+}
+
+.fix {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  top: 0;
+}
+
+.main {
+  padding-top: 110px;
 }
 </style>

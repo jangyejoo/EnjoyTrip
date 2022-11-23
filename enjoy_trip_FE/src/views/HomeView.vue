@@ -1,7 +1,7 @@
 <template>
   <div>
     <random-attraction></random-attraction>
-    <recommand-attraction></recommand-attraction>
+    <recommand-attraction class="gap"></recommand-attraction>
   </div>
 </template>
 
@@ -24,4 +24,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.gap {
+  margin: 40px 0;
+}
+</style>

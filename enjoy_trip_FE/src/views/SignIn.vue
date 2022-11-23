@@ -42,6 +42,7 @@ export default {
   },
   computed: {
     ...mapState("userStore", ["isLogin", "isLoginError", "userInfo"]),
+    // ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
     ...mapActions("userStore", ["userLogin", "getUserInfo"]),
@@ -51,8 +52,10 @@ export default {
       if (this.isLogin) {
         await this.getUserInfo(token)
           .then((success) => console.log(success))
-          .catch((error) => console.log(error));
+          .catch((error) => console.log("AAAA", error));
         this.$router.push("/");
+      } else {
+        alert("로그인에 실패하였습니다. 아이디 혹은 비밀번호를 확인해주세요.");
       }
     },
   },

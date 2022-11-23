@@ -1,7 +1,13 @@
 <template>
   <div>
-    <h1>지금 뜨는 여행 계획 (10개만)</h1>
-    <b-button :to="{ name: 'tourboardlist' }">더보기</b-button>
+    <b-container>
+      <h3 class="title">
+        지금 뜨는 여행계획
+        <router-link :to="{ name: 'tourboardlist' }" class="more"
+          >더보기</router-link
+        >
+      </h3>
+    </b-container>
     <b-container v-if="tours && tours.length != 0" class="bv-example-row mt-3">
       <swiper class="swiper" :options="swiperOption">
         <tour-board-list-item
@@ -80,5 +86,34 @@ export default {
 
 h1 {
   display: inline;
+}
+.title {
+  /* background-color: gray; */
+  text-align: start;
+  margin: 10px 0;
+  margin-left: 15px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: black;
+  font-weight: 400;
+}
+
+.more {
+  font-size: 1rem;
+  cursor: pointer;
+  /* border: 1px solid #00ce7c; */
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-right: 20px;
+  float: right;
+  color: gray;
+  text-decoration: none;
+}
+
+.more:hover {
+  background-color: #00ce7c;
+  color: white;
+  border-color: #008d55;
 }
 </style>
