@@ -49,5 +49,6 @@ nav a.router-link-exact-active {
 
 .main {
   padding-top: 110px;
+  min-height: calc(100vh - 422.56px);
 }
 </style>

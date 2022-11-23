@@ -110,7 +110,7 @@ export default {
       return this.title.length > 0;
     },
     availableWrite() {
-      if (this.title != "") return false;
+      if (this.title != "" && this.attractioncart.length != 0) return false;
       else return true;
     },
     availableSearch() {
