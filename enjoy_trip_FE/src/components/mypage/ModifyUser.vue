@@ -17,20 +17,25 @@
       <!-- <div> -->
       <b-container>
         <!-- 이메일 -->
-        <b-col sm="6" offset-sm="3">
-          <b-form-group label="이메일:" label-cols-sm="3">
+        <b-col sm="8" offset-sm="2">
+          <b-form-group
+            label="이메일"
+            label-cols-sm="3"
+            style="text-align: left"
+          >
             <b-form-input type="email" disabled v-model="userInfo.userId">
             </b-form-input>
           </b-form-group>
         </b-col>
         <!-- 닉네임 -->
-        <b-col sm="6" offset-sm="3">
+        <b-col sm="8" offset-sm="2">
           <b-form-group
-            label="닉네임:"
+            label="닉네임"
             label-cols-sm="3"
             valid-feedback=""
             :state="checkName"
             :invalid-feedback="invalidName"
+            style="text-align: left"
           >
             <b-form-input
               type="text"
@@ -44,12 +49,13 @@
         </b-col>
 
         <!-- 비밀번호 -->
-        <b-col sm="6" offset-sm="3" v-if="wantPwdChange">
+        <b-col sm="8" offset-sm="2" v-if="wantPwdChange">
           <b-form-group
-            label="새 비밀번호:"
+            label="새 비밀번호"
             label-cols-sm="3"
             :state="checkPwd"
             invalid-feedback="특수문자($,@,$,!,%,*,#,?,&)와 문자를 포함한 6~16글자여야 합니다."
+            style="text-align: left"
           >
             <b-form-input
               type="password"
@@ -59,12 +65,13 @@
           </b-form-group>
         </b-col>
 
-        <b-col sm="6" offset-sm="3" v-if="wantPwdChange">
+        <b-col sm="8" offset-sm="2" v-if="wantPwdChange">
           <b-form-group
-            label="비밀번호 확인:"
+            label="비밀번호 확인"
             label-cols-sm="3"
             :state="dblcheckPwd"
             invalid-feedback="비밀번호가 같지 않습니다."
+            style="text-align: left"
           >
             <b-form-input
               type="password"

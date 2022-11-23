@@ -3,12 +3,7 @@
     <b-list-group-item>
       <b-row>
         <b-col xl="2" md="3" sm="4">
-          <b-img
-            :src="item.firstImage"
-            alt=""
-            rounded
-            style="width: 100%; height: 100%"
-          />
+          <b-img :src="item.firstImage" alt="" rounded />
         </b-col>
         <b-col xl="10" md="9" sm="8">
           <h5>
@@ -83,4 +78,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+img {
+  width: 100%;
+  max-height: 118px;
+}
+</style>

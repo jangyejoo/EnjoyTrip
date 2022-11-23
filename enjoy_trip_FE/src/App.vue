@@ -15,8 +15,16 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "twayair";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: twayair, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -50,5 +58,12 @@ nav a.router-link-exact-active {
 .main {
   padding-top: 110px;
   min-height: calc(100vh - 422.56px);
+}
+
+input[type="password"] {
+  font-family: Avenir !important;
+}
+input[type="password"]::placeholder {
+  font-family: twayair;
 }
 </style>

@@ -211,4 +211,9 @@ export default {
     color: #444;
   }
 }
+
+.img-thumbnail {
+  width: 100%;
+  max-height: 144px;
+}
 </style>

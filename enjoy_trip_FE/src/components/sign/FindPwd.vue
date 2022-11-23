@@ -8,7 +8,12 @@
         <img src="../../assets/img/logo_keyColor.png" alt="" />
         <h4 v-if="!isLoading">비밀번호 찾기</h4>
         <!-- 이메일 -->
-        <b-form-group label="이메일:" label-cols-sm="3" v-if="!isLoading">
+        <b-form-group
+          label="이메일"
+          label-cols-sm="3"
+          v-if="!isLoading"
+          style="text-align: left"
+        >
           <b-form-input type="email" v-model="user.userId"></b-form-input>
         </b-form-group>
         <button @click="findPwd" class="btn" v-if="!isLoading">

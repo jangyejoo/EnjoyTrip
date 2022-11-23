@@ -7,11 +7,12 @@
         <h4>회원가입</h4>
         <!-- 이메일 -->
         <b-form-group
-          label="이메일:"
+          label="이메일"
           label-cols-sm="3"
           valid-feedback=""
           :state="checkEmail"
           :invalid-feedback="invalidEmail"
+          style="text-align: left"
         >
           <b-form-input
             type="email"
@@ -24,11 +25,12 @@
 
         <!-- 닉네임 -->
         <b-form-group
-          label="닉네임:"
+          label="닉네임"
           label-cols-sm="3"
           valid-feedback=""
           :state="checkName"
           :invalid-feedback="invalidName"
+          style="text-align: left"
         >
           <b-form-input
             type="text"
@@ -41,10 +43,11 @@
 
         <!-- 비밀번호 유효성 검사 -->
         <b-form-group
-          label="비밀번호:"
+          label="비밀번호"
           label-cols-sm="3"
           :state="checkPwd"
           invalid-feedback="특수문자($,@,$,!,%,*,#,?,&)와 문자를 포함한 6~16글자여야 합니다."
+          style="text-align: left"
         >
           <b-form-input
             type="password"
@@ -54,10 +57,11 @@
         </b-form-group>
 
         <b-form-group
-          label="비밀번호 확인:"
+          label="비밀번호 확인"
           label-cols-sm="3"
           :state="dblcheckPwd"
           invalid-feedback="비밀번호가 같지 않습니다."
+          style="text-align: left"
         >
           <b-form-input
             type="password"
@@ -67,7 +71,7 @@
         </b-form-group>
 
         <button
-          class="btn"
+          class="btn mb-3 mt-3"
           variant="primary"
           @click="signup"
           :disabled="availableSignup"

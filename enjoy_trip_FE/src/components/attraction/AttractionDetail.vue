@@ -125,4 +125,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@font-face {
+  font-family: "twayair";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: twayair;
+}
+</style>

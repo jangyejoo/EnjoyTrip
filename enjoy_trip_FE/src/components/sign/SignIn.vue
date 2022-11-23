@@ -8,12 +8,16 @@
         <img src="../../assets/img/logo_keyColor.png" alt="" />
         <h4>로그인</h4>
         <!-- 이메일 -->
-        <b-form-group label="이메일:" label-cols-sm="3">
+        <b-form-group label="이메일" label-cols-sm="3" style="text-align: left">
           <b-form-input type="email" v-model="user.userId"></b-form-input>
         </b-form-group>
         <!-- <b-row> </b-row> -->
         <!-- 비밀번호 검사 -->
-        <b-form-group label="비밀번호:" label-cols-sm="3">
+        <b-form-group
+          label="비밀번호"
+          label-cols-sm="3"
+          style="text-align: left"
+        >
           <b-form-input type="password" v-model="user.userPwd"></b-form-input>
         </b-form-group>
         <!-- <b-row> </b-row> -->
