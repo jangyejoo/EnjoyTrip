@@ -76,7 +76,7 @@ const attraction = {
         .get(`/board/list`)
         .then(({ data }) => {
           commit("SET_TOUR_LIST", data);
-          commit("TOUR_MODAL_SWITCH", false);
+          // commit("TOUR_MODAL_SWITCH", false);
         })
         .catch((error) => {
           console.log(error);
@@ -117,7 +117,19 @@ const attraction = {
         .put("/board/plan", Object.fromEntries(map))
         .then(({ data }) => {
           commit("SET_TOUR_LIST", data);
-          commit("TOUR_MODAL_SWITCH", false);
+          data.forEach((item) => {
+            if (item.planId == map.get("planId")) {
+              http
+                .get(`/board/list/${item.planId}`)
+                .then(({ data }) => {
+                  commit("SET_DETAIL_TOUR", data);
+                  commit("TOUR_MODAL_SWITCH", true);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          });
         })
         .catch((error) => console.log(error));
     },

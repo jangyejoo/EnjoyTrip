@@ -3,7 +3,7 @@
     <b-container>
       <h3 class="title">
         지금 뜨는 여행계획
-        <p @click="tog('/attraction')" class="more">더보기</p>
+        <p @click="tog('/tourboard')" class="more">더보기</p>
       </h3>
     </b-container>
     <b-container v-if="tours && tours.length != 0" class="bv-example-row mt-3">
@@ -13,8 +13,9 @@
           :key="index"
           :tour="tour"
         ></tour-board-list-item>
-
+        <div class="swiper-button-prev" slot="pagination"></div>
         <div class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-button-next" slot="pagination"></div>
       </swiper>
 
       <tour-board-detail></tour-board-detail>
@@ -51,9 +52,15 @@ export default {
     return {
       listData: [],
       swiperOption: {
+        loop: true,
         slidesPerView: 3,
         spaceBetween: 20,
         pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+
         breakpoints: {
           1024: { slidesPerView: 3, spaceBetween: 20 },
           768: { slidesPerView: 2, spaceBetween: 10 },

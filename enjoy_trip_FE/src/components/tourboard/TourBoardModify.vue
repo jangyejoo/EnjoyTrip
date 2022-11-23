@@ -110,7 +110,7 @@ export default {
       return this.title.length > 0;
     },
     availableModify() {
-      if (this.title != "") return false;
+      if (this.title != "" && this.attractioncart.length != 0) return false;
       else return true;
     },
     availableSearch() {
@@ -154,7 +154,6 @@ export default {
         map.set(desc, item.attractionDesc);
       });
       this.modifyPlan(map);
-      this.close();
       this.$router.push({ name: "tourboardlist" });
     },
   },
