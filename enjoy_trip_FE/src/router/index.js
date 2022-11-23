@@ -3,8 +3,9 @@ import VueRouter from "vue-router";
 // import TheNavi from "@/views/TheNavi.vue";
 import HomeView from "@/views/HomeView.vue";
 import AppMyPage from "@/views/AppMyPage.vue";
-import SignIn from "@/views/SignIn.vue";
-import SignUp from "@/views/SignUp.vue";
+import SignIn from "@/components/sign/SignIn.vue";
+import SignUp from "@/components/sign/SignUp.vue";
+import FindPwd from "@/components/sign/FindPwd.vue";
 import AppAttraction from "@/views/AppAttraction.vue";
 import AppTourBoard from "@/views/AppTourBoard.vue";
 import store from "@/store";
@@ -51,6 +52,11 @@ const routes = [
     path: "/signup",
     name: "SignUp",
     component: SignUp,
+  },
+  {
+    path: "/findpwd",
+    name: "FindPwd",
+    component: FindPwd,
   },
   {
     path: "/attraction",

@@ -3,7 +3,7 @@
     <!-- 회원가입 -->
     <b-container v-if="user">
       <div class="signform shadow-lg p-3 mb-5 bg-white rounded">
-        <img src="../assets/img/logo_keyColor.png" alt="" />
+        <img src="../../assets/img/logo_keyColor.png" alt="" />
         <!-- 이메일 -->
         <b-form-group
           label="이메일:"

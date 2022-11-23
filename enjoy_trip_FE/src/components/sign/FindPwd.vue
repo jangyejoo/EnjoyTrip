@@ -5,27 +5,22 @@
       <!-- <div class="signform shadow-lg p-3 mb-5 bg-white rounded"> -->
       <div class="signform shadow-lg p-3 mb-5 bg-white rounded">
         <!-- logo -->
-        <img src="../assets/img/logo_keyColor.png" alt="" />
+        <img src="../../assets/img/logo_keyColor.png" alt="" />
         <!-- 이메일 -->
         <b-form-group label="이메일:" label-cols-sm="3">
           <b-form-input type="email" v-model="user.userId"></b-form-input>
         </b-form-group>
-        <!-- <b-row> </b-row> -->
-        <!-- 비밀번호 검사 -->
-        <b-form-group label="비밀번호:" label-cols-sm="3">
-          <b-form-input type="password" v-model="user.userPwd"></b-form-input>
-        </b-form-group>
-        <!-- <b-row> </b-row> -->
-        <button @click="loginbtn" class="btn">로그인</button>
-        <div class="tranbox">
-          <span class="findPwd">비밀번호 찾기</span>
-        </div>
+        <button @click="findPwd" class="btn">비밀번호 찾기</button>
+      </div>
+      <div class="tranbox">
+        <span class="findPwd" @click="goSignIn"> 로그인 </span>
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
+import http from "@/api/http";
 import { mapActions, mapState } from "vuex";
 
 // const userStore = "userStore";
@@ -36,8 +31,8 @@ export default {
     return {
       user: {
         userId: "",
-        userPwd: "",
       },
+      isUser: 3,
     };
   },
   computed: {
@@ -46,17 +41,27 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["userLogin", "getUserInfo"]),
-    async loginbtn() {
-      await this.userLogin(this.user);
-      const token = sessionStorage.getItem("access-token");
-      if (this.isLogin) {
-        await this.getUserInfo(token)
-          .then((success) => console.log(success))
-          .catch((error) => console.log("AAAA", error));
-        this.$router.push("/");
+    async findPwd() {
+      console.log("btn click");
+      await this.checkEmailOnServer();
+      console.log(this.isUser);
+      if (this.isUser == 1) {
+        console.log("isuser");
+        await http
+          .post("user/findpwd", this.user)
+          .then((data) => console.log(data));
       } else {
-        alert("로그인에 실패하였습니다. 아이디 혹은 비밀번호를 확인해주세요.");
+        alert("잘못된 입력입니다.");
       }
+    },
+    goSignIn() {
+      this.$router.push("/signin");
+    },
+    async checkEmailOnServer() {
+      console.log(this.user.userId);
+      await http.post("user/idcheck", this.user).then(({ data }) => {
+        this.isUser = data;
+      });
     },
   },
 };
