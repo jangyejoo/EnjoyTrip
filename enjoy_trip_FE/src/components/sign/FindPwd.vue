@@ -3,17 +3,24 @@
     <!-- 회원가입 -->
     <b-container>
       <!-- <div class="signform shadow-lg p-3 mb-5 bg-white rounded"> -->
-      <div class="signform shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="signform shadow-lg p-3 mb-5 bg-white rounded" ref="box">
         <!-- logo -->
         <img src="../../assets/img/logo_keyColor.png" alt="" />
+        <h4 v-if="!isLoading">비밀번호 찾기</h4>
         <!-- 이메일 -->
-        <b-form-group label="이메일:" label-cols-sm="3">
+        <b-form-group label="이메일:" label-cols-sm="3" v-if="!isLoading">
           <b-form-input type="email" v-model="user.userId"></b-form-input>
         </b-form-group>
-        <button @click="findPwd" class="btn">비밀번호 찾기</button>
-      </div>
-      <div class="tranbox">
-        <span class="findPwd" @click="goSignIn"> 로그인 </span>
+        <button @click="findPwd" class="btn" v-if="!isLoading">
+          <div class="emptybox">비밀번호 찾기</div>
+        </button>
+
+        <div class="tranbox" v-if="!isLoading">
+          <span class="findPwd" @click="goSignIn"> 로그인 </span>
+        </div>
+        <div class="spinfix" v-if="isLoading">
+          <b-spinner label="Loading..."></b-spinner>
+        </div>
       </div>
     </b-container>
   </div>
@@ -33,6 +40,7 @@ export default {
         userId: "",
       },
       isUser: 3,
+      isLoading: false,
     };
   },
   computed: {
@@ -42,22 +50,25 @@ export default {
   methods: {
     ...mapActions("userStore", ["userLogin", "getUserInfo"]),
     async findPwd() {
-      console.log("btn click");
       await this.checkEmailOnServer();
       console.log(this.isUser);
       if (this.isUser == 1) {
+        this.isLoading = true;
         console.log("isuser");
         await http.post("user/findpwd", this.user).then(({ data }) => {
           if (data.message == "success") {
             alert("이메일로 전달된 비밀번호를 확인해주세요.");
             this.$router.push("/signin");
+            this.isLoading = false;
           } else {
+            this.isLoading = false;
             alert("에러발생");
           }
         });
       } else {
         alert("잘못된 입력입니다.");
       }
+      this.isUser == 3;
     },
     goSignIn() {
       this.$router.push("/signin");
@@ -74,6 +85,7 @@ export default {
 
 <style scoped>
 .signform {
+  position: relative;
   width: 600px;
   border: 1px solid rgba(0, 0, 0, 0.068);
   margin: 50px auto;
@@ -83,7 +95,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-content: space-between;
+  /* align-content: space-between; */
   /* justify-content: space-around; */
   /* box-shadow: ; */
 }
@@ -94,7 +106,7 @@ export default {
 }
 
 .signform * {
-  justify-content: center;
+  /* justify-content: center; */
   /* margin: auto; */
 }
 
@@ -106,7 +118,14 @@ export default {
   width: 400px;
   margin: 0 auto;
   transform: translateY(-5px);
-  justify-content: center;
+  /* justify-content: center; */
+}
+
+.emptybox {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .btn {
@@ -142,5 +161,15 @@ export default {
 .findPwd:hover {
   font-weight: 700;
   /* color: #00ce7c; */
+}
+
+.spinfix {
+  position: absolute;
+  bottom: calc(50% - 1rem);
+  left: calc(50% - 1rem);
+}
+
+.dpnone {
+  display: none;
 }
 </style>

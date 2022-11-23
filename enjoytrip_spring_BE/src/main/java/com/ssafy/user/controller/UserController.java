@@ -283,12 +283,14 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		logger.debug("find pwd: target user >>>> {}", target);
-		String newPass = javaMailSender.sendMail(target);
-		System.out.println("passmail");
-		Map<String, String> newInfo = new HashMap<String, String>();
-		newInfo.put("userId", target);
-		newInfo.put("newPwd", newPass);
+		
 		try {
+			String userName = userService.userInfo(target).getUserName();
+			String newPass = javaMailSender.sendMail(target, userName);
+			System.out.println("passmail");
+			Map<String, String> newInfo = new HashMap<String, String>();
+			newInfo.put("userId", target);
+			newInfo.put("newPwd", newPass);
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;
 			userService.setNewPwd(newInfo);

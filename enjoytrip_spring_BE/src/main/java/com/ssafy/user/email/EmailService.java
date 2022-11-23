@@ -7,12 +7,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.user.model.service.UserServiceImpl;
+
 @Service
 public class EmailService{
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	public String sendMail(String userEmail) {
+	public String sendMail(String userEmail, String userName) {
 		System.out.println("sendMail >> 01");
 //		수신대상을 담을 ArrayList생성
 //		ArrayList<String> toUserList = new ArrayList<String>();
@@ -27,7 +29,7 @@ public class EmailService{
 		int rightLimit = 122; // letter 'z'
 		int targetStringLength = 13;
 		Random random = new Random();
-		char rand = specials[(int)Math.floor((Math.random() * 100)/9)];
+		char rand = specials[(int)Math.floor((Math.random() * 100)%9)];
 		System.out.println("rand >>>>>>>>>>>>>> " + rand);
 		String generatedString = random.ints(leftLimit,rightLimit + 1)
 		  .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
@@ -43,6 +45,9 @@ public class EmailService{
 		String newString = new String(newPass);
 		System.out.println(">>>>>>>>>>>>>>>> " + newString);
 		
+		
+		
+		
 //		수신 대상 개수
 //		int toUserSize = toUserList.size();
 		
@@ -54,10 +59,10 @@ public class EmailService{
 		simleMessage.setTo(target);
 		
 //	 	mail title
-		simleMessage.setSubject("SMTP GOOGLE EMAIL TEST");
+		simleMessage.setSubject("EnjoyTrip " + userName + "님의 비밀번호 변경 안내입니다.");
 		System.out.println("sendMail >> 04");
 //		main content
-		simleMessage.setText("SMTP GOOGLE EMAIL TEST CONTENT >>>> " + newString);
+		simleMessage.setText( "비밀번호 찾기를 통해 새로 발급된 "+ userName + "님의 새로운 비밀번호는 " + newString + "입니다. \n로그인 이후 꼭 비밀번호를 바꿔주세요!");
 		System.out.println("sendMail >> 05");
 		
 		javaMailSender.send(simleMessage);
