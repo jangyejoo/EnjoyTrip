@@ -154,7 +154,6 @@ export default {
         map.set(desc, item.attractionDesc);
       });
       this.modifyPlan(map);
-      this.close();
       this.$router.push({ name: "tourboardlist" });
     },
   },
