@@ -280,11 +280,24 @@ public class UserController {
 	@PostMapping("/findpwd")
 	public ResponseEntity<?> findPwd( @RequestBody Map<String, String> map) {
 		String target = map.get("userId");
+		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		logger.debug("find pwd: target user >>>> {}", target);
-		javaMailSender.sendMail(target);
+		String newPass = javaMailSender.sendMail(target);
 		System.out.println("passmail");
-		return new ResponseEntity<Void>(status);
+		Map<String, String> newInfo = new HashMap<String, String>();
+		newInfo.put("userId", target);
+		newInfo.put("newPwd", newPass);
+		try {
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+			userService.setNewPwd(newInfo);
+		} catch (Exception e) {
+			logger.error("비밀번호 변경 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {

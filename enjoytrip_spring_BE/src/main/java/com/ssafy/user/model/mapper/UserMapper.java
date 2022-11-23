@@ -32,4 +32,6 @@ public interface UserMapper {
 	void deleteRefreshToken(Map<String, String> map) throws SQLException;
 
 	int modifyNameCheck(Map<String, String> map) throws SQLException;
+
+	void setNewPwd(Map<String, String> map) throws SQLException;
 }

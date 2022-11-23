@@ -12,7 +12,7 @@ public class EmailService{
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	public void sendMail(String userEmail) {
+	public String sendMail(String userEmail) {
 		System.out.println("sendMail >> 01");
 //		수신대상을 담을 ArrayList생성
 //		ArrayList<String> toUserList = new ArrayList<String>();
@@ -62,6 +62,8 @@ public class EmailService{
 		
 		javaMailSender.send(simleMessage);
 		System.out.println("sendMail >> 06");
+		
+		return newString;
 	}
 	
 }

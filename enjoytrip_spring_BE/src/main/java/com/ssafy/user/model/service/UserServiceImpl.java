@@ -100,4 +100,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.modifyNameCheck(map);
 	}
 
+	@Override
+	public void setNewPwd(Map<String, String> map) throws Exception {
+		userMapper.setNewPwd(map);
+	}
+
 }

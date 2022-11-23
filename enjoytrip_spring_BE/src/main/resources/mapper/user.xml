@@ -88,4 +88,10 @@
 		where user_name = #{userName} and user_email != #{userId}
 	</select>
 	
+	<update id="setNewPwd" parameterType="map">
+		update members
+		set user_password = #{newPwd}
+		where user_email = #{userId}
+	</update>
+	
 </mapper>

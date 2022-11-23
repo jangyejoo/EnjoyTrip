@@ -47,9 +47,14 @@ export default {
       console.log(this.isUser);
       if (this.isUser == 1) {
         console.log("isuser");
-        await http
-          .post("user/findpwd", this.user)
-          .then((data) => console.log(data));
+        await http.post("user/findpwd", this.user).then(({ data }) => {
+          if (data.message == "success") {
+            alert("이메일로 전달된 비밀번호를 확인해주세요.");
+            this.$router.push("/signin");
+          } else {
+            alert("에러발생");
+          }
+        });
       } else {
         alert("잘못된 입력입니다.");
       }
