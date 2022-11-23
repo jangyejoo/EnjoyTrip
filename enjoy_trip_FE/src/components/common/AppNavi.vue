@@ -60,8 +60,6 @@ import NaviSide from "@/components/common/NaviSide.vue";
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
-  // import NaviSide from "@/components/common/Navi.Side.vue",
-
   name: "AppNavi",
   computed: {
     ...mapState("userStore", ["userInfo"]),
@@ -101,28 +99,28 @@ export default {
         i++;
       }
     },
-    watch: {
-      changeTab(path) {
-        let navs = this.$refs.tabNav.children;
-        console.log(path);
-        switch (path) {
-          case "/":
-            this.navLine(0, navs);
-            break;
+  },
+  watch: {
+    changeTab(path) {
+      let navs = this.$refs.tabNav.children;
+      console.log(path);
+      switch (path) {
+        case "/":
+          this.navLine(0, navs);
+          break;
 
-          case "/attraction":
-            this.navLine(1, navs);
-            break;
+        case "/attraction":
+          this.navLine(1, navs);
+          break;
 
-          case "/tourboard":
-            this.navLine(2, navs);
-            break;
-          default:
-            console.log("no path");
-            this.navLine(4, navs);
-            break;
-        }
-      },
+        case "/tourboard":
+          this.navLine(2, navs);
+          break;
+        default:
+          console.log("no path");
+          this.navLine(4, navs);
+          break;
+      }
     },
   },
   components: {

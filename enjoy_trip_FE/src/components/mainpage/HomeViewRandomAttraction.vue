@@ -1,13 +1,23 @@
 <template>
   <b-container class="h-100">
-    <!-- <h1 class="test animate__animated animate__tada">An animated element</h1> -->
+    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
+
     <b-row class="justify-content-md-center h-100">
       <!-- no image 대응할것 없으면 css무너짐 사진 크기또한 고정 시켜야 함 -->
-      <b-button @click="newRandAttraction">bool</b-button>
+      <!-- <b-button @click="newRandAttraction">bool</b-button> -->
       <div class="card-box-cus">
-        <div
-          v-if="!visi"
-          class="card-box-pop animate__animated animate__zoomOut animate_custom"
+        <!-- v-if="!visi" -->
+        <div class="card-box-pop animate__animated animate_custom" ref="pop">
+          <img
+            src="../../assets/img/logo_keyColor01.png"
+            alt=""
+            class="animate__animated animate_custom"
+            ref="popimg"
+          />
+        </div>
+        <!-- <div
+          v-else
+          class="card-box-pop animate__animated animate__zoomIn animate_custom"
         >
           <img
             src="../../assets/img/logo_keyColor01.png"
@@ -15,17 +25,7 @@
             class="animate__animated animate__tada animate_custom"
             ref="tada"
           />
-        </div>
-        <div
-          v-else
-          class="card-box-pop animate__animated animate__zoomIn animate_custom animate__fast"
-        >
-          <img
-            src="../../assets/img/logo_keyColor01.png"
-            alt=""
-            class="animate__animated animate__tada animate_custom"
-          />
-        </div>
+        </div> -->
         <b-card
           :img-src="`${attraction.firstImage}`"
           img-alt="Card image"
@@ -72,7 +72,6 @@
 </template>
 
 <script>
-// const axios = require("axios");
 import http from "@/api/http";
 import "animate.css";
 
@@ -87,9 +86,6 @@ export default {
         contentTypeName: "",
         firstImage: "",
       },
-      randPath: "",
-      rand: 0,
-      visi: false,
     };
   },
   methods: {
@@ -139,25 +135,32 @@ export default {
     },
     newRandAttraction() {
       let cardStyle = this.$refs.card.classList;
+      let pop = this.$refs.pop.classList;
+      let popImg = this.$refs.popimg.classList;
+      pop.remove("animate__bounceOut");
+      pop.add("animate__bounceIn");
       cardStyle.remove("zIdx");
-      this.visi = true;
+      // this.visi = true;
+
       setTimeout(() => {
-        this.visi = false;
+        popImg.add("animate__tada");
+        pop.remove("animate__bounceIn");
+        // this.visi = false;
       }, 1000);
 
       setTimeout(() => {
-        cardStyle.add("zIdx");
-      }, 1200);
+        popImg.remove("animate__tada");
+      }, 1800);
 
-      //
-    },
-    bool() {
-      this.visi = !this.visi;
+      setTimeout(() => {
+        pop.add("animate__bounceOut");
+        cardStyle.add("zIdx");
+      }, 2300);
     },
   },
   async mounted() {
     this.anotherAttraction();
-    this.newRandAttraction();
+    // this.newRandAttraction();
   },
 };
 </script>
@@ -195,10 +198,12 @@ export default {
   position: absolute;
   z-index: 10;
   left: 0;
-  top: 0;
+  top: 1px;
   width: 700px;
   height: 300px;
-  background-image: url("../../assets/img/bg.jpg");
+  /* transform: translateY(1px); */
+  border-radius: 3px;
+  background-image: url("../../assets/img/popbg.webp");
   background-size: cover;
 }
 
@@ -210,13 +215,13 @@ export default {
 }
 
 .animate_custom {
-  animation-duration: 0.5s;
+  animation-duration: 0.8s;
 }
-.zIdx {
+/* .zIdx {
   z-index: 20;
-}
+} */
 
-/* .bg1{
+/* .bg1 {
   background-image: ;
 } */
 </style>
