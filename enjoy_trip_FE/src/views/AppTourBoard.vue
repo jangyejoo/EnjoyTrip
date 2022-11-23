@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-jumbotron header-level="4">
-      <template #header>여행 계획 게시판</template>
+      <template #header>여행계획 게시판</template>
 
       <template #lead>
         서로의 여행 계획을 공유할 수 있는 페이지입니다

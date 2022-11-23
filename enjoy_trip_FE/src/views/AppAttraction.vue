@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-jumbotron header-level="4">
-      <template #header>관광지 정보</template>
+      <template #header>관광지 찾기</template>
 
       <template #lead>
         내가 원하는 관광지를 조회할 수 있는 페이지입니다
