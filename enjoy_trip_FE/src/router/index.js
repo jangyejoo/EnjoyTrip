@@ -85,6 +85,12 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/tourboard/TourBoardWrite"),
       },
+      {
+        path: "modify",
+        name: "tourboardmodify",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/tourboard/TourBoardModify"),
+      },
     ],
   },
 ];

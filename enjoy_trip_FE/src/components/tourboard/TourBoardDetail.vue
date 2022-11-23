@@ -45,6 +45,15 @@
         >
           삭제하기
         </b-button>
+
+        <b-button
+          v-if="userInfo && userInfo.userId == tour.userId"
+          variant="outline-primary"
+          class="float-right mr-2"
+          @click="modifySharedPlan"
+        >
+          수정하기
+        </b-button>
       </div>
     </template>
   </b-modal>
@@ -86,6 +95,9 @@ export default {
         this.deletePlan(this.tour);
         this.close();
       }
+    },
+    modifySharedPlan() {
+      this.$router.push({ name: "tourboardmodify" });
     },
   },
 };

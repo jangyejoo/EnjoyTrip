@@ -27,4 +27,8 @@ public interface BoardMapper {
 	void writePlanContent(Board boardDto) throws SQLException;
 
 	void updateHit(String planNo) throws SQLException;
+
+	void modifyPlanBoard(Board boardDto) throws SQLException;
+
+	void deletePlanContent(String planId) throws SQLException;
 }

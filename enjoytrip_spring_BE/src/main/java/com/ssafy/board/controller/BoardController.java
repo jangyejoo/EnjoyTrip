@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ssafy.board.model.mapper.Board;
 import com.ssafy.board.model.mapper.PlanInfo;
 import com.ssafy.board.model.service.BoardService;
-import com.ssafy.user.model.mapper.User;
 
 @RestController
 @RequestMapping("/board")
@@ -127,6 +124,51 @@ public class BoardController {
 //		}
 		
 	}
+	
+	// 일정 수정
+		@PutMapping("/plan")
+		public ResponseEntity<?> planModify(@RequestBody Map<String, String> map){
+			logger.debug("planModify call");
+//			HttpSession session = request.getSession();
+//			User user = (User) session.getAttribute("userInfo");
+//			if (user != null) {
+				try {
+					Board board = new Board();
+					board.setPlanId(Integer.parseInt(map.get("planId")));
+					board.setTitle(map.get("title"));
+					board.setThumbNail(map.get("thumbnail"));
+					board.setUserId(map.get("userId"));
+					List<PlanInfo> plans = new ArrayList<>();
+					int i = 1;
+					while(true) {
+						String id = "attractionId" + i;
+						String desc = "attractionDesc"+i;
+						if (map.get(id) == null)
+							break;
+						PlanInfo plan = new PlanInfo();
+						plan.setContentId(map.get(id));
+						plan.setContentDesc(map.get(desc));
+						plans.add(plan);
+						i++;
+					}
+					board.setPlanInfos(plans);
+					boardService.modify(board);
+					
+					List<Board> boards = boardService.getList();
+					if (boards != null && !boards.isEmpty()) {
+						return new ResponseEntity<List<Board>>(boards, HttpStatus.OK);
+					} else {
+						return new ResponseEntity<List<Board>>(boards, HttpStatus.NO_CONTENT);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return exceptionHandling(e);
+				}
+//			} else {
+//				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//			}
+			
+		}
 	
 	// 일정 삭제
 	@DeleteMapping("/plan/{planId}")

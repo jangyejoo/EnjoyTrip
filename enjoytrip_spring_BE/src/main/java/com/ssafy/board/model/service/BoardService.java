@@ -24,4 +24,6 @@ public interface BoardService {
 	void writePlanContent(Board boardDto) throws Exception;
 
 	void updateHit(String planId) throws Exception;
+
+	void modify(Board boardDto) throws Exception;
 }

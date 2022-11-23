@@ -61,10 +61,7 @@ export default {
     },
     attractioncart: {
       handler() {
-        // // 일단 4개까지만 담을 수 있게 막아 놓음!!
-        // if (this.attractioncart.length >= 4) {
-        //   this.canAdd = false;
-        // }
+        this.setCheckBox();
       },
     },
     attraction: {

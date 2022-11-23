@@ -40,10 +40,10 @@
 import { mapMutations, mapState } from "vuex";
 
 export default {
-  name: "TourBoardWriteItem",
+  name: "TourBoardModifyItem",
   data() {
     return {
-      text: "",
+      text: this.item.attractionDesc,
     };
   },
   computed: {

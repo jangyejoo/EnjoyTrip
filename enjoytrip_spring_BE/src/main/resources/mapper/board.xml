@@ -28,54 +28,75 @@
 	</resultMap>
 
 	<select id="getList" resultMap="boardList">
-		select b.plan_id, b.title, b.hit, b.register_date, b.thumbnail, m.user_email, m.user_name
-		from members m join plan_board b
+		select b.plan_id, b.title, b.hit,
+		b.register_date, b.thumbnail, m.user_email, m.user_name
+		from members m
+		join plan_board b
 		on m.user_email = b.user_email
 		order by
 		b.plan_id desc
 	</select>
 
 	<select id="view" parameterType="string" resultMap="article">
-		select b.plan_id, b.title, b.hit, b.register_date, b.thumbnail, m.user_email, m.user_name
+		select
+		b.plan_id, b.title, b.hit, b.register_date, b.thumbnail, m.user_email,
+		m.user_name
 		from members m join plan_board b
-		on m.user_email = b.user_email
+		on m.user_email =
+		b.user_email
 		where b.plan_id = #{planId}
 	</select>
 
 	<select id="planInfoList" resultMap="plan">
 		select ct.firstimage,
 		ct.title, v.content_desc, ct.content_type_id, ct.content_id
-		from content ct join (select content_id, content_desc
+		from
+		content ct join (select content_id, content_desc
 		from plan_content
 		where plan_id = #{planId}) as v
 		on ct.content_id = v.content_id
 	</select>
-	
+
 	<update id="updateHit" parameterType="string">
 		update plan_board
-		set hit = hit + 1
+		set hit =
+		hit + 1
 		where plan_id = #{planId}
 	</update>
-	
+
 	<insert id="writePlanBoard" parameterType="board">
 		insert into plan_board(title, register_date, thumbnail, user_email)
 		values (#{title}, now(), #{thumbNail}, #{userId})
-		<selectKey resultType="int" keyProperty="planId" order="AFTER">
+		<selectKey resultType="int" keyProperty="planId"
+			order="AFTER">
 			select last_insert_id()
 		</selectKey>
 	</insert>
-	
+
 	<insert id="writePlanContent" parameterType="board">
 		insert into plan_content
-		values 
+		values
 		<foreach collection="planInfos" item="planinfo" separator=",">
 			(#{planId},#{planinfo.contentId},#{planinfo.contentDesc})
 		</foreach>
 	</insert>
-	
+
+	<update id="modifyPlanBoard" parameterType="board">
+		update plan_board
+		set
+		title=#{title}, thumbnail=#{thumbNail}
+		where plan_id=#{planId}
+	</update>
+
 	<delete id="delete" parameterType="string">
 		delete from plan_board
-		where plan_id = #{planId}
+		where
+		plan_id = #{planId}
 	</delete>
-	
+
+	<delete id="deletePlanContent" parameterType="string">
+		delete from plan_content
+		where plan_id= #{planId}
+	</delete>
+
 </mapper>

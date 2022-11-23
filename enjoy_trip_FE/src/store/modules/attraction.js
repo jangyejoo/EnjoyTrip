@@ -112,6 +112,15 @@ const attraction = {
         })
         .catch((error) => console.log(error));
     },
+    modifyPlan({ commit }, map) {
+      http
+        .put("/board/plan", Object.fromEntries(map))
+        .then(({ data }) => {
+          commit("SET_TOUR_LIST", data);
+          commit("TOUR_MODAL_SWITCH", false);
+        })
+        .catch((error) => console.log(error));
+    },
     deletePlan({ commit }, plan) {
       http
         .delete(`/board/plan/${plan.planId}`)
@@ -209,6 +218,17 @@ const attraction = {
         if (item.contentId == params.contentId) {
           cart[index].attractionDesc = params.text;
         }
+      });
+    },
+    SET_ATTRACTION_CART(state, planInfos) {
+      state.attractioncart = [];
+      planInfos.forEach((item) => {
+        state.attractioncart.push({
+          title: item.title,
+          firstImage: item.firstImage,
+          contentId: item.contentId,
+          attractionDesc: item.contentDesc,
+        });
       });
     },
   },

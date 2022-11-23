@@ -62,21 +62,21 @@
         </p>
       </b-col>
     </b-row>
-    <tour-board-write-item
+    <tour-board-modify-item
       v-for="(item, index) in attractioncart"
       :key="index"
       :item="item"
       style="background-color: #ececec"
-    ></tour-board-write-item>
+    ></tour-board-modify-item>
     <b-button
       class="mt-3 mb-3"
       variant="outline"
       block
-      @click="write"
-      :disabled="availableWrite"
+      @click="modify"
+      :disabled="availableModify"
       size="lg"
     >
-      일정 등록하기
+      일정 수정하기
     </b-button>
   </div>
 </template>
@@ -85,17 +85,17 @@
 import KakaoMap from "@/components/common/KakaoMap.vue";
 import TourBoardMapItem from "@/components/tourboard/TourBoardMapItem.vue";
 import AttractionDetail from "@/components/attraction/AttractionDetail.vue";
-import TourBoardWriteItem from "@/components/tourboard/TourBoardWriteItem.vue";
+import TourBoardModifyItem from "@/components/tourboard/TourBoardModifyItem.vue";
 
 import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
-  name: "TourBoardWrite",
+  name: "TourBoardModify",
   components: {
     KakaoMap,
     TourBoardMapItem,
     AttractionDetail,
-    TourBoardWriteItem,
+    TourBoardModifyItem,
   },
   data() {
     return {
@@ -104,12 +104,12 @@ export default {
     };
   },
   computed: {
-    ...mapState("attraction", ["searchlist", "attractioncart"]),
+    ...mapState("attraction", ["searchlist", "attractioncart", "tour"]),
     ...mapState("userStore", ["userInfo"]),
     state() {
       return this.title.length > 0;
     },
-    availableWrite() {
+    availableModify() {
       if (this.title != "") return false;
       else return true;
     },
@@ -119,15 +119,20 @@ export default {
     },
   },
   created() {
+    this.title = this.tour.title;
     this.CLEAR_SEARCH_LIST();
-    this.CLEAR_ATTRACTION_LIST();
+    this.SET_ATTRACTION_CART(this.tour.planInfos);
   },
   methods: {
-    ...mapActions("attraction", ["getSearchList", "writePlan"]),
+    ...mapActions("attraction", ["getSearchList", "modifyPlan", "detailTour"]),
     ...mapMutations("attraction", [
       "CLEAR_SEARCH_LIST",
-      "CLEAR_ATTRACTION_LIST",
+      "SET_ATTRACTION_CART",
+      "TOUR_MODAL_SWITCH",
     ]),
+    close() {
+      this.TOUR_MODAL_SWITCH(false);
+    },
     search() {
       if (this.search) {
         const params = {
@@ -136,8 +141,9 @@ export default {
         this.getSearchList(params);
       }
     },
-    write() {
+    modify() {
       let map = new Map();
+      map.set("planId", this.tour.planId);
       map.set("title", this.title);
       map.set("thumbnail", this.attractioncart[0].firstImage);
       map.set("userId", this.userInfo.userId);
@@ -147,7 +153,8 @@ export default {
         let desc = `attractionDesc${index + 1}`;
         map.set(desc, item.attractionDesc);
       });
-      this.writePlan(map);
+      this.modifyPlan(map);
+      this.close();
       this.$router.push({ name: "tourboardlist" });
     },
   },

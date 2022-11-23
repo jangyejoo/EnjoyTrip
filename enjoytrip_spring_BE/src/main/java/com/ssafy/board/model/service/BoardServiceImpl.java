@@ -33,9 +33,17 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void write(Board boardDto) throws Exception {
-		System.out.println("전:"+boardDto);
 		boardMapper.writePlanBoard(boardDto);
-		System.out.println("후:"+boardDto);
+		List<PlanInfo> planInfos = boardDto.getPlanInfos();
+		if (planInfos != null && !planInfos.isEmpty()) {
+			boardMapper.writePlanContent(boardDto);
+		}
+	}
+
+	@Override
+	public void modify(Board boardDto) throws Exception {
+		boardMapper.modifyPlanBoard(boardDto);
+		boardMapper.deletePlanContent(Integer.toString(boardDto.getPlanId()));
 		List<PlanInfo> planInfos = boardDto.getPlanInfos();
 		if (planInfos != null && !planInfos.isEmpty()) {
 			boardMapper.writePlanContent(boardDto);
