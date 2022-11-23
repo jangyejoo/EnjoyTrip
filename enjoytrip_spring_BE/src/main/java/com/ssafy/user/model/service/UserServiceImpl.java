@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.user.email.EmailService;
 import com.ssafy.user.model.mapper.User;
 import com.ssafy.user.model.mapper.UserMapper;
 
@@ -18,6 +19,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	
 
 	@Autowired
 	public UserServiceImpl(UserMapper userMapper) {
@@ -96,4 +99,5 @@ public class UserServiceImpl implements UserService {
 	public int modifyNameCheck(Map<String, String> map) throws Exception {
 		return userMapper.modifyNameCheck(map);
 	}
+
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.resource.HttpResource;
 
+import com.ssafy.user.email.EmailService;
 import com.ssafy.user.model.mapper.User;
 import com.ssafy.user.model.service.UserService;
 import com.ssafy.user.model.service.JwtServiceImpl;
@@ -45,6 +47,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EmailService javaMailSender;
 	
 	@Autowired
 	public UserController(UserService userService) {
@@ -270,6 +275,16 @@ public class UserController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 
+	}
+	
+	@PostMapping("/findpwd")
+	public ResponseEntity<?> findPwd( @RequestBody Map<String, String> map) {
+		String target = map.get("userId");
+		HttpStatus status = HttpStatus.ACCEPTED;
+		logger.debug("find pwd: target user >>>> {}", target);
+		javaMailSender.sendMail(target);
+		System.out.println("passmail");
+		return new ResponseEntity<Void>(status);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
