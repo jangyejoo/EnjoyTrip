@@ -66,4 +66,8 @@ input[type="password"] {
 input[type="password"]::placeholder {
   font-family: twayair;
 }
+
+.swiper .swiper-pagination-bullet-active {
+  background-color: #00ce7c;
+}
 </style>

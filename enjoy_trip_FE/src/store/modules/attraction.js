@@ -103,8 +103,8 @@ const attraction = {
           console.log(error);
         });
     },
-    writePlan({ commit }, map) {
-      http
+    async writePlan({ commit }, map) {
+      await http
         .post("/board/plan", Object.fromEntries(map))
         .then(({ data }) => {
           commit("SET_TOUR_LIST", data);

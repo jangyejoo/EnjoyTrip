@@ -133,4 +133,17 @@ h1 {
   color: white;
   border-color: #008d55;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #00ce7c !important;
+}
+
+.swiper .swiper-pagination-bullet-active {
+  background-color: #00ce7c;
+}
+/* 
+.swiper-pagination-bullet-active {
+  background-color: #00ce7c !important;
+} */
 </style>
