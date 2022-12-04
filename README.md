@@ -1,7 +1,7 @@
 # :airplane:EnjoyTrip
 > 국내 관광지 정보와 여행 계획 공유 서비스를 제공하는 웹 사이트
 
-<img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logoJavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>  
 
 - EnjoyTrip은 [한국관광공사의 관광정보 서비스 API](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578) 기반 다양한 국내 관광지 정보를 포함한 웹 사이트입니다. 
 - [카카오맵 API](https://apis.map.kakao.com/web/)를 사용하여 관광지의 위치와 정보를 쉽게 확인할 수 있으며 회원가입을 한 회원들은 여행 계획 만들어 공유할 수 있습니다.
@@ -68,6 +68,6 @@ npm run serve
 :heavy_check_mark: 여행계획 게시판 글 수정, 삭제하기
 
 - 본인의 글 수정, 삭제
-- 수정 후 바로 모달창으로 
+- 수정 후 바로 모달창으로 이동
 
 ![update,delete](https://user-images.githubusercontent.com/69101568/205479309-e076d978-0c0b-42b3-bb2d-2769f890daa1.gif)
